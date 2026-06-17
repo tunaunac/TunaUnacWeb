@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUNA UNAC - Universidad Nacional del Callao</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        :root {
+            --color-primario: #108dcd;
+            --color-secundario: #bfa86e;
+            --color-terciario: #044570;
+            --fuente-titulos: 'Playfair Display', serif;
+            --fuente-textos: 'Inter', sans-serif;
+            --color-fondo-dashboard: #f8fafc;
+            --color-borde: #e2e8f0;
+            --sombra-ligera: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --sombra-caja: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --sombra-grande: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; height: 100vh; font-family: var(--fuente-textos); background-color: #ffffff; overflow: hidden; position: relative; }
+        .texto-xs { font-size: 0.65vw; } .texto-sm { font-size: 0.85vw; } .texto-base { font-size: 1vw; } .texto-lg { font-size: 1.2vw; } .texto-xl { font-size: 1.5vw; } .texto-2xl { font-size: 2.2vw; } .texto-titulo { font-size: 5.5vw; line-height: 1.05; }
+        .fuente-playfair { font-family: var(--fuente-titulos); } .fuente-inter { font-family: var(--fuente-textos); }
+        .texto-primario { color: var(--color-primario); } .texto-secundario { color: var(--color-secundario); } .texto-terciario { color: var(--color-terciario); } .texto-gris { color: #475569; } .texto-blanco { color: #ffffff; } .texto-rojo { color: #dc2626; }
+        .negrita { font-weight: 700; } .semi-negrita { font-weight: 600; } .cursiva { font-style: italic; } .mayusculas { text-transform: uppercase; } .espaciado-letras { letter-spacing: 0.05em; } .altura-linea-relajada { line-height: 1.6; }
+        .texto-centro { text-align: center; } .texto-izquierda { text-align: left; }
+        .w-completo { width: 100%; } .h-completo { height: 100%; }
+        .flexbox { display: flex; } .flex-columna { flex-direction: column; } .flex-fila { flex-direction: row; }
+        .justificar-centro { justify-content: center; } .justificar-inicio { justify-content: flex-start; } .justificar-espacio { justify-content: space-between; } .alinear-centro { align-items: center; } .alinear-inicio { align-items: flex-start; } .centrado-total { display: flex; justify-content: center; align-items: center; }
+        .brecha-sm { gap: 0.5vw; } .brecha-md { gap: 1.5vw; } .brecha-lg { gap: 3vw; }
+        .margen-superior-sm { margin-top: 1vw; } .margen-superior-md { margin-top: 2vw; } .margen-superior-lg { margin-top: 3vw; } .margen-inferior-sm { margin-bottom: 0.5vw; } .margen-inferior-md { margin-bottom: 1vw; } .margen-inferior-lg { margin-bottom: 2vw; } .margen-derecha-sm { margin-right: 0.5vw; }
+        .sombra-caja { box-shadow: var(--sombra-caja); } .sombra-ligera { box-shadow: var(--sombra-ligera); } .sombra-grande { box-shadow: var(--sombra-grande); }
+        .borde-redondeado { border-radius: 0.5vw; } .borde-redondeado-panel { border-radius: 1vw; }
+        .espaciado-y > * + * { margin-top: 1.5vw; } .padding-x-lg { padding-left: 10vw; padding-right: 10vw; }
+
+        .encabezado-principal { position: absolute; top: 0; left: 0; right: 0; z-index: 30; margin: 1.5vw 3vw; background-color: transparent; display: flex; justify-content: space-between; align-items: center; }
+        .contenedor-logo { display: flex; align-items: center; gap: 0.5vw; }
+        .logo-unac { height: 3.5vw; width: auto; }
+        .enlace-navegacion { position: relative; padding-bottom: 0.2vw; transition: color 0.3s ease; cursor: pointer; text-decoration: none; }
+        .enlace-navegacion::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 0.15vw; background-color: var(--color-primario); transition: width 0.3s ease; }
+        .enlace-navegacion:hover::after, .enlace-navegacion.nav-activo::after { width: 100%; }
+
+        .boton { padding: 0.8vw 1.5vw; transition: all 0.3s ease; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; border: none; font-family: var(--fuente-textos); }
+        .boton-degradado { background: linear-gradient(135deg, var(--color-primario) 0%, #0b6796 100%); color: white; }
+        .boton-degradado:hover { background: linear-gradient(135deg, #0b6796 0%, #06405e 100%); transform: translateY(-0.2vw); box-shadow: var(--sombra-ligera); }
+        .boton-borde-dorado { background-color: white; border: 0.15vw solid var(--color-secundario); color: var(--color-secundario); }
+        .boton-borde-dorado:hover { background-color: var(--color-secundario); color: white; transform: translateY(-0.2vw); box-shadow: var(--sombra-ligera); }
+        .icono-boton { margin-right: 0.5vw; }
+
+        .contenedor-principal { position: relative; z-index: 10; width: 100%; height: 100%; }
+        
+        .seccion-panel { display: none !important; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .seccion-panel.panel-activo { display: flex !important; }
+
+        .seccion-inicio { padding-top: 8vw; padding-bottom: 6vw; padding-left: 6vw; padding-right: 1vw; }
+        .fondo-principal { background-color: #f0f4f8; background-size: cover; background-position: center; background-attachment: fixed; }
+        .panel-izquierdo { width: 40%; padding: 3vw; }
+        .panel-derecho { width: 60%; position: relative; overflow: hidden; }
+        .fondo-panel-derecho { position: absolute; inset: 0; background-image: url('https://placehold.co/800x1000/0047ab/ffffff?text=Panel+Derecho+Fondo'); background-size: cover; background-position: center; }
+        .superposicion-panel-derecho { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background-image: url('https://placehold.co/800x500/bfa86e/ffffff?text=Panel+Derecho+Superpuesto'); background-size: cover; background-position: bottom center; opacity: 0.9; }
+        .panel-vidrio { background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); }
+
+        .seccion-secundaria { margin-top: 8vw; height: calc(100vh - 8vw); overflow-y: auto; padding: 0 6vw 6vw 6vw; flex-direction: column; align-items: center; }
+        .contenido-secundario { width: 100%; min-height: max-content; padding: 4vw; margin-bottom: 4vw; }
+        .grid-2-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5vw; }
+
+        .candelabro { width: 15vw; display: block; } .candelabro-centro { margin: 1vw auto; }
+        
+        .entrada-formulario { width: 100%; padding: 0.8vw 1vw; border: 1px solid var(--color-borde); background: #f8fafc; outline: none; border-radius: 0.5vw; transition: all 0.3s; font-family: var(--fuente-textos); }
+        .entrada-formulario:focus { border-color: var(--color-primario); background: #ffffff; box-shadow: 0 0 0 3px rgba(16, 141, 205, 0.1); } .area-texto { resize: none; }
+        label { display: block; margin-bottom: 0.3vw; color: var(--color-terciario); font-weight: 600; }
+        
+        .input-icono-wrapper { position: relative; width: 100%; margin-bottom: 1vw; }
+        .input-icono-wrapper i { position: absolute; left: 1vw; top: 50%; transform: translateY(-50%); color: var(--color-gris); font-size: 1vw; z-index: 2;}
+        .input-icono-wrapper .entrada-formulario { padding-left: 2.8vw; }
+        /* Pag-urnos iti input ti password tapno saan a maabbongan ti mata */
+        .input-icono-wrapper input[type="password"], .input-icono-wrapper input#login-password { padding-right: 3vw; }
+        .btn-ojo { position: absolute; right: 1vw; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-gris); font-size: 1.2vw; transition: color 0.2s; z-index: 5; padding: 0.5vw;}
+        .btn-ojo:hover { color: var(--color-primario); }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(4, 69, 112, 0.6); backdrop-filter: blur(5px); z-index: 9999 !important; display: none; justify-content: center; align-items: center; }
+        .modal-overlay.modal-activo { display: flex !important; }
+        .modal-contenido { position: relative; width: 30vw; min-width: 320px; background-color: #ffffff; padding: 3vw; max-height: 80vh; overflow-y: auto; }
+        .boton-cerrar-modal { position: absolute; top: 1vw; right: 1.5vw; background: transparent; border: none; font-size: 1.5vw; color: var(--color-terciario); cursor: pointer; transition: color 0.2s; }
+        .boton-cerrar-modal:hover { color: var(--color-rojo); }
+
+        .dashboard-contenedor { flex-direction: row; width: 100%; height: calc(100vh - 8vw); margin-top: 8vw; background-color: var(--color-fondo-dashboard); position: relative; }
+        
+        .dashboard-sidebar { width: 20%; min-width: 15vw; background-color: #ffffff; border-right: 1px solid var(--color-borde); padding: 2vw 1.5vw; display: flex; flex-direction: column; overflow-y: auto; z-index: 40; transition: all 0.3s ease; }
+        .dashboard-sidebar.oculto { width: 0; min-width: 0; padding: 0; border: none; opacity: 0; overflow: hidden; }
+        
+        .perfil-usuario { display: flex; align-items: center; gap: 1vw; padding-bottom: 1.5vw; border-bottom: 1px solid var(--color-borde); margin-bottom: 1.5vw; white-space: nowrap; }
+        .avatar-usuario { width: 3.5vw; height: 3.5vw; min-width: 3.5vw; border-radius: 50%; background-color: var(--color-secundario); color: white; display: flex; justify-content: center; align-items: center; font-size: 1.5vw; }
+        .menu-dashboard-item { display: flex; align-items: center; padding: 1vw; color: var(--color-gris); text-decoration: none; border-radius: 0.5vw; font-weight: 500; transition: all 0.2s; margin-bottom: 0.5vw; cursor: pointer; white-space: nowrap; }
+        .menu-dashboard-item:hover, .menu-dashboard-item.activo { background-color: var(--color-primario); color: white; box-shadow: var(--sombra-ligera); }
+        .menu-dashboard-icono { width: 1.5vw; margin-right: 1vw; text-align: center; }
+        
+        .dashboard-contenido { flex: 1; padding: 0; overflow-y: auto; position: relative; transition: all 0.3s ease; background-color: var(--color-fondo-dashboard); }
+        .dashboard-seccion { display: none; position: relative; min-height: 100%; padding: 3vw; }
+        .dashboard-seccion.activo { display: block; }
+
+        .btn-burbuja { position: fixed; bottom: 2vw; left: 2vw; background: var(--color-terciario); color: white; border: none; border-radius: 50%; width: 3.5vw; height: 3.5vw; font-size: 1.5vw; cursor: pointer; z-index: 100; box-shadow: var(--sombra-caja); display: flex; justify-content: center; align-items: center; transition: all 0.3s; }
+        .btn-burbuja:hover { background: var(--color-primario); transform: scale(1.1); }
+
+        .contenedor-overlays { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+        .contenedor-overlays > * { pointer-events: auto; }
+        
+        .overlay-cancion { position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; background: #ffffff; z-index: 20; padding: 3vw; }
+        #overlay-recursos { z-index: 25 !important; box-shadow: -10px 0 20px rgba(0,0,0,0.05); }
+        .overlay-cancion .cerrar-overlay { display: inline-flex; align-items: center; gap: 0.5vw; font-size: 0.9vw; cursor: pointer; color: var(--color-gris); font-weight: 600; padding: 0.5vw 1vw; background: var(--color-fondo-dashboard); border-radius: 2vw; border: 1px solid var(--color-borde); transition: all 0.2s; margin-bottom: 1.5vw; }
+        .overlay-cancion .cerrar-overlay:hover { background: var(--color-borde); color: var(--color-terciario); }
+
+        .categoria-boton { padding: 0.5vw 1.2vw; margin-right: 0.5vw; border-radius: 2vw; background: white; border: 1px solid var(--color-borde); cursor: pointer; font-size: 0.85vw; font-weight: 500; transition: all 0.2s; box-shadow: var(--sombra-ligera); }
+        .categoria-boton:hover { border-color: var(--color-primario); color: var(--color-primario); }
+        .categoria-boton.activo { background: var(--color-primario); color: white; border-color: var(--color-primario); box-shadow: var(--sombra-caja); }
+        .categoria-editar-input { width: 8vw; padding: 0.3vw 0.5vw; border: 1px solid #ccc; border-radius: 0.3vw; }
+        
+        .tarjeta-cancion, .tarjeta-tarea { padding: 1.2vw; margin-bottom: 0.8vw; background: white; border: 1px solid var(--color-borde); border-radius: 0.8vw; cursor: pointer; transition: all 0.3s; box-shadow: var(--sombra-ligera); }
+        .tarjeta-cancion:hover, .tarjeta-tarea:hover { transform: translateX(0.5vw); box-shadow: var(--sombra-caja); border-color: var(--color-primario); }
+        
+        .instrumento-card { border-radius: 0.8vw; overflow: hidden; box-shadow: var(--sombra-ligera); transition: all 0.3s; background: white; border: 1px solid var(--color-borde); display: flex; flex-direction: column; cursor: pointer; }
+        .instrumento-card:hover { transform: translateY(-0.3vw); box-shadow: var(--sombra-caja); border-color: var(--color-primario); }
+        .instrumento-img { width: 100%; height: 8vw; object-fit: cover; background: #e2e8f0; border-bottom: 1px solid var(--color-borde); }
+        .instrumento-info { padding: 1.2vw; flex: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; }
+        
+        .nav-recursos { display: flex; justify-content: space-between; align-items: center; background: var(--color-fondo-dashboard); padding: 1vw 1.5vw; border-radius: 0.8vw; margin-bottom: 2vw; border: 1px solid var(--color-borde); }
+
+        .boton-agregar { background: white; border: 2px dashed var(--color-borde); padding: 0.8vw 1.5vw; border-radius: 0.5vw; cursor: pointer; font-size: 0.9vw; font-weight: 600; color: var(--color-gris); transition: all 0.3s; width: 100%; display: block; text-align: center; }
+        .boton-agregar:hover { border-color: var(--color-primario); color: var(--color-primario); background: #f0f9ff; }
+        
+        .btn-icono { background: white; border: 1px solid var(--color-borde); padding: 0.5vw 0.8vw; border-radius: 0.4vw; cursor: pointer; font-size: 0.9vw; margin-left: 0.3vw; transition: all 0.2s; box-shadow: var(--sombra-ligera); color: var(--color-gris); }
+        .btn-icono:hover { background: var(--color-fondo-dashboard); color: var(--color-primario); border-color: var(--color-primario); }
+        
+        .progreso-botones { display: flex; gap: 0.3vw; width: 100%; justify-content: center; }
+        .progreso-boton { padding: 0.4vw 0.8vw; border: 1px solid var(--color-borde); background: #f8fafc; border-radius: 1vw; font-size: 0.75vw; cursor: pointer; transition: 0.3s; font-weight: 500; color: var(--color-gris); }
+        .progreso-boton:hover { background: #e2e8f0; }
+        .progreso-boton.activo { background: var(--color-primario); color: white; border-color: var(--color-primario); box-shadow: var(--sombra-ligera); }
+        
+        .tabla-progreso { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.9vw; border: 1px solid var(--color-borde); border-radius: 0.8vw; overflow: hidden; background: white; }
+        .tabla-progreso th, .tabla-progreso td { padding: 1vw; border-bottom: 1px solid var(--color-borde); text-align: center; background: white; }
+        .tabla-progreso tr:last-child td { border-bottom: none; }
+        .tabla-progreso th { background: var(--color-fondo-dashboard); font-weight: 600; color: var(--color-terciario); text-transform: uppercase; font-size: 0.8vw; letter-spacing: 0.05em; }
+
+        .mosaico-item { position: relative; height: 15vw; border-radius: 1vw; overflow: hidden; cursor: pointer; background-size: cover; background-position: center; transition: transform 0.3s; box-shadow: var(--sombra-ligera); }
+        .mosaico-item:hover { transform: scale(1.03); z-index: 5; box-shadow: var(--sombra-grande); }
+        .mosaico-overlay { position: absolute; inset: 0; background: rgba(4, 69, 112, 0.5); display: flex; justify-content: center; align-items: center; color: white; text-align: center; transition: background 0.3s; }
+        .mosaico-item:hover .mosaico-overlay { background: rgba(4, 69, 112, 0.2); }
+        .mosaico-overlay h3 { font-size: 1.5vw; font-weight: 700; letter-spacing: 0.1vw; font-family: var(--fuente-titulos); text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+
+        .tv-container { position:relative; width: 75vw; height: 42vw; background: #111; border: 1vw solid #222; border-radius: 1.5vw; padding: 1vw; box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-bottom-width: 2vw; display: flex; }
+        .tv-container iframe { border-radius: 0.5vw; flex: 1; }
+
+        /* Estilos Generador de Acordes */
+        .chord-generator { display: flex; flex-direction: column; gap: 1.5vw; }
+        .chord-panels-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2vw; }
+        .chord-panel { background: #f8fafc; border: 1px solid var(--color-borde); padding: 1.5vw; border-radius: 1vw; }
+        .chord-panel-title { font-size: 1.2vw; color: var(--color-terciario); border-bottom: 2px solid var(--color-primario); padding-bottom: 0.5vw; margin-bottom: 1vw; font-weight: bold; }
+        .chord-string-row { display: flex; align-items: center; gap: 1vw; margin-bottom: 0.5vw; }
+        .chord-string-label { font-weight: bold; width: 2vw; color: var(--color-terciario); }
+        .chord-tuning-adjust { display: flex; gap: 0.5vw; }
+        .chord-button { background: white; border: 1px solid var(--color-borde); padding: 0.5vw 1vw; border-radius: 0.5vw; cursor: pointer; transition: 0.2s; color: var(--color-terciario); font-weight: 600; font-size: 0.85vw; }
+        .chord-button:hover { background: var(--color-primario); color: white; border-color: var(--color-primario); }
+        .chord-select { padding: 0.5vw; border-radius: 0.5vw; border: 1px solid var(--color-borde); background: white; color: var(--color-terciario); font-family: var(--fuente-textos); }
+        .chord-control-group { margin-bottom: 1vw; display: flex; flex-direction: column; gap: 0.5vw; }
+        .chord-formula { font-size: 0.85vw; color: var(--color-gris); font-style: italic; background: #e2e8f0; padding: 0.5vw; border-radius: 0.5vw; text-align: center; }
+        
+        .chord-fretboard-container { overflow-x: auto; margin-top: 2vw; background: #1e293b; padding: 2vw; border-radius: 1vw; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        .chord-fretboard { display: flex; flex-direction: column; gap: 1vw; min-width: 800px; }
+        .chord-string { display: flex; height: 0.5vw; background: #94a3b8; border-radius: 1vw; align-items: center; }
+        .chord-fret { flex: 1; border-right: 3px solid #cbd5e1; height: 3vw; position: relative; display: flex; justify-content: center; align-items: center; }
+        .chord-fret:first-child { border-right: 5px solid #fff; background: #0f172a; }
+        .chord-note { width: 2vw; height: 2vw; background: white; border: 2px solid var(--color-terciario); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.8vw; font-weight: bold; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .chord-note-root { background: var(--color-rojo); color: white; border-color: var(--color-rojo); }
+        .chord-fret-number-row { display: flex; margin-top: 0.5vw; }
+        .chord-fret-number { flex: 1; text-align: center; font-size: 0.9vw; font-weight: bold; color: #cbd5e1; }
+        .chord-fret-marker { position: absolute; bottom: -1vw; width: 0.8vw; height: 0.8vw; background: #64748b; border-radius: 50%; left: 50%; transform: translateX(-50%); }
+        .chord-fret-marker-double { display: flex; gap: 0.5vw; background: transparent; width: auto; bottom: -1vw; }
+        .chord-fret-marker-double span { width: 0.8vw; height: 0.8vw; background: #64748b; border-radius: 50%; }
+
+        /* KINA-RESPONSIVE (1024px nga agpababa) */
+        @media (max-width: 1024px) {
+            /* Dakkel a font sizes para iti mobile */
+            .texto-xs { font-size: 0.8rem; }
+            .texto-sm { font-size: 0.9rem; }
+            .texto-base { font-size: 1rem; }
+            .texto-lg { font-size: 1.2rem; }
+            .texto-xl { font-size: 1.5rem; }
+            .texto-2xl { font-size: 2rem; }
+            .texto-titulo { font-size: 2.8rem; }
+            
+            .encabezado-principal { position: relative; margin: 1rem; flex-direction: column; gap: 1rem; }
+            .logo-unac { height: 3rem; }
+            .navegacion-principal { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+            
+            .seccion-inicio { padding: 2rem 1rem; flex-direction: column; }
+            .panel-izquierdo { width: 100%; padding: 2rem; text-align: center; align-items: center; }
+            .panel-derecho { display: none; }
+            
+            .seccion-secundaria { margin-top: 1rem; height: auto; padding: 1rem; }
+            .contenido-secundario { padding: 1.5rem; margin-bottom: 2rem; }
+            .grid-2-columnas { grid-template-columns: 1fr; gap: 2rem; }
+            
+            /* Sidebar agbalin a slide-in drawer */
+            .dashboard-contenedor { margin-top: 1rem; height: calc(100vh - 1rem); }
+            .dashboard-sidebar { position: fixed; left: -100%; top: 0; width: 80%; height: 100%; z-index: 1000; box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
+            .dashboard-sidebar.oculto { left: -100%; opacity: 1; } /* override */
+            .dashboard-sidebar.abierto { left: 0; }
+            
+            .btn-burbuja { bottom: 1.5rem; left: 1.5rem; width: 4rem; height: 4rem; font-size: 1.8rem; z-index: 1001; }
+            
+            .dashboard-seccion { padding: 1rem; padding-bottom: 6rem; }
+            .dashboard-contenido { width: 100%; }
+            
+            /* Inputs ken botones ti dashboard */
+            .entrada-formulario { padding: 0.8rem 1rem; border-radius: 0.5rem; }
+            .boton { padding: 0.8rem 1.5rem; font-size: 1rem; border-radius: 0.5rem; }
+            .btn-icono { padding: 0.8rem; font-size: 1rem; border-radius: 0.5rem; }
+            .input-icono-wrapper i { font-size: 1.2rem; left: 1rem; }
+            .input-icono-wrapper .entrada-formulario { padding-left: 3rem; }
+            .input-icono-wrapper input[type="password"] { padding-right: 3rem; }
+            .btn-ojo { font-size: 1.4rem; right: 1rem; }
+            
+            /* Modales ken Overlays */
+            .modal-contenido { width: 95vw; padding: 1.5rem; }
+            .boton-cerrar-modal { font-size: 2rem; top: 1rem; right: 1rem; }
+            .overlay-cancion { padding: 1.5rem; padding-bottom: 6rem; }
+            .overlay-cancion .cerrar-overlay { font-size: 1rem; padding: 0.8rem 1.5rem; }
+            
+            /* Tablas ken Cuadriculas */
+            .instrumento-card { border-radius: 1rem; }
+            .instrumento-img { height: 120px; }
+            .instrumento-info { padding: 1rem; }
+            .progreso-boton { font-size: 0.85rem; padding: 0.6rem; border-radius: 2rem; }
+            
+            .tabla-progreso th, .tabla-progreso td { font-size: 0.85rem; padding: 0.8rem 0.5rem; }
+            
+            /* Botones Filtro */
+            .filtro-boton, .categoria-boton { font-size: 0.9rem; padding: 0.8rem 1.5rem; border-radius: 2rem; margin-bottom: 0.5rem; }
+            
+            /* Presentaciones */
+            .mosaico-item { height: 40vw; border-radius: 1rem; }
+            .mosaico-overlay h3 { font-size: 1.5rem; }
+            .tv-container { width: 95vw; height: 60vw; padding: 0.5rem; border-radius: 1rem; }
+            
+            /* Generador */
+            .chord-panel-title { font-size: 1.2rem; }
+            .chord-button { font-size: 1rem; padding: 0.8rem 1.2rem; border-radius: 0.5rem; }
+            .chord-string-label { width: 30px; font-size: 1rem; }
+            .chord-fret { height: 40px; }
+            .chord-note { width: 30px; height: 30px; font-size: 14px; }
+            .chord-fret-number { font-size: 14px; }
+            .chord-fret-marker { width: 12px; height: 12px; bottom: -20px; }
+            .chord-fret-marker-double span { width: 12px; height: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="encabezado-principal">
+        <div class="contenedor-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Escudo_de_la_Universidad_Nacional_del_Callao.svg/1200px-Escudo_de_la_Universidad_Nacional_del_Callao.svg.png" alt="Escudo UNAC" class="logo-unac">
+            <div>
+                <h1 class="texto-lg negrita texto-primario fuente-playfair espaciado-letras">TUNA UNAC</h1>
+                <p class="texto-xs texto-primario semi-negrita">⚜️UNIVERSIDAD NACIONAL DEL CALLAO⚜️</p>
+            </div>
+        </div>
+        <nav class="navegacion-principal flexbox alinear-centro brecha-md">
+            <a onclick="mostrarPanel('inicio')" id="nav-inicio" class="enlace-navegacion nav-activo texto-primario semi-negrita texto-sm mayusculas">INICIO</a>
+            <a onclick="mostrarPanel('historia')" id="nav-historia" class="enlace-navegacion texto-primario semi-negrita texto-sm mayusculas">HISTORIA</a>
+            <a onclick="mostrarPanel('integrantes')" id="nav-integrantes" class="enlace-navegacion texto-primario semi-negrita texto-sm mayusculas">INTEGRANTES</a>
+            <a onclick="mostrarPanel('presentaciones')" id="nav-presentaciones" class="enlace-navegacion texto-primario semi-negrita texto-sm mayusculas">PRESENTACIONES</a>
+            <a onclick="mostrarPanel('contacto')" id="nav-contacto" class="enlace-navegacion texto-primario semi-negrita texto-sm mayusculas">CONTACTO</a>
+        </nav>
+        <button onclick="accederAreaMiembros()" class="boton boton-degradado borde-redondeado semi-negrita texto-sm sombra-caja">
+            <i class="fa-solid fa-user-group icono-boton"></i> ÁREA DE MIEMBROS
+        </button>
+    </header>
+
+    <main class="contenedor-principal">
+        <section id="panel-inicio" class="seccion-panel panel-activo seccion-inicio flex-fila brecha-lg fondo-principal">
+            <div class="panel-izquierdo panel-vidrio borde-redondeado-panel sombra-grande flexbox flex-columna justificar-centro alinear-inicio texto-izquierda">
+                <img src="CANDELABROSUPERIOR.jpg" alt="Candelabro" class="candelabro margen-inferior-md" onerror="this.style.display='none'">
+                <h2 class="texto-titulo negrita texto-primario fuente-playfair">TUNA</h2>
+                <h2 class="texto-titulo negrita texto-primario fuente-playfair">UNAC</h2>
+                <img src="cANDELABROINFERIOR.jpg" alt="Candelabro" class="candelabro margen-superior-md" onerror="this.style.display='none'">
+                <p class="texto-xl texto-primario fuente-playfair cursiva margen-superior-md margen-inferior-lg">Tradición que se canta,<br>historia que se vive.</p>
+                <div class="flexbox flex-fila brecha-md">
+                    <a onclick="mostrarPanel('historia')" class="boton boton-degradado borde-redondeado semi-negrita texto-sm"><i class="fa-solid fa-shield-halved icono-boton"></i> CONÓCENOS</a>
+                    <a onclick="mostrarPanel('contacto')" class="boton boton-borde-dorado borde-redondeado semi-negrita texto-sm"><i class="fa-solid fa-envelope icono-boton"></i> CONTÁCTANOS</a>
+                </div>
+            </div>
+            <div class="panel-derecho borde-redondeado-panel sombra-grande">
+                <div class="fondo-panel-derecho"></div>
+                <div class="superposicion-panel-derecho"></div>
+            </div>
+        </section>
+        
+        <section id="panel-historia" class="seccion-panel seccion-secundaria">
+            <div class="contenido-secundario panel-vidrio borde-redondeado-panel sombra-caja">
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Nuestra Historia</h2>
+                <div class="grid-2-columnas" style="gap: 4vw; align-items: center;">
+                    <div>
+                        <p class="texto-base texto-gris altura-linea-relajada margen-inferior-md">La Tuna de la Universidad Nacional del Callao (UNAC) nace con el propósito de mantener viva la tradición universitaria que se remonta al siglo XIII. Con sus capas, jubones y cintas, los estudiantes chalacos decidieron llevar su alegría, música y romanticismo a cada rincón del puerto y del país.</p>
+                        <p class="texto-base texto-gris altura-linea-relajada margen-inferior-md">Nuestra hermandad se forjó al son de la bandurria, el laúd y la guitarra, cantando bajo los balcones y recorriendo las calles en las clásicas "rondas". Somos embajadores culturales de nuestra Alma Máter.</p>
+                        <p class="texto-base texto-gris altura-linea-relajada">A lo largo de los años, hemos participado en innumerables certámenes nacionales e internacionales, ganando premios a mejor instrumental, mejor pandereta y mejor capa, pero sobre todo, ganando aplausos y sonrisas.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80" alt="Historia Tuna" style="width:100%; border-radius: 1vw; box-shadow: var(--sombra-ligera);">
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-integrantes" class="seccion-panel seccion-secundaria">
+            <div class="contenido-secundario panel-vidrio borde-redondeado-panel sombra-caja">
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg texto-centro">Generaciones de Tunos</h2>
+                
+                <h3 class="texto-xl semi-negrita texto-primario margen-inferior-md margen-superior-lg" style="border-bottom: 2px solid var(--color-borde); padding-bottom: 0.5vw;">1era Generación (2000 - 2005)</h3>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr)); gap: 3vw;">
+                    <div class="texto-centro"><div style="width:10vw; height:10vw; margin:0 auto 1vw auto; border-radius:50%; border:3px solid var(--color-secundario); overflow:hidden; box-shadow: var(--sombra-ligera);"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;"></div><p class="negrita texto-terciario">"El Jefe"</p><p class="texto-xs texto-gris">Juan Pérez</p></div>
+                    <div class="texto-centro"><div style="width:10vw; height:10vw; margin:0 auto 1vw auto; border-radius:50%; border:3px solid var(--color-secundario); overflow:hidden; box-shadow: var(--sombra-ligera);"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;"></div><p class="negrita texto-terciario">"Trovador"</p><p class="texto-xs texto-gris">Carlos Ruiz</p></div>
+                </div>
+
+                <h3 class="texto-xl semi-negrita texto-primario margen-inferior-md margen-superior-lg" style="border-bottom: 2px solid var(--color-borde); padding-bottom: 0.5vw;">2da Generación (2006 - 2010)</h3>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr)); gap: 3vw;">
+                    <div class="texto-centro"><div style="width:10vw; height:10vw; margin:0 auto 1vw auto; border-radius:50%; border:3px solid var(--color-secundario); overflow:hidden; box-shadow: var(--sombra-ligera);"><img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;"></div><p class="negrita texto-terciario">"El Púas"</p><p class="texto-xs texto-gris">Luis Gómez</p></div>
+                </div>
+
+                <h3 class="texto-xl semi-negrita texto-primario margen-inferior-md margen-superior-lg" style="border-bottom: 2px solid var(--color-borde); padding-bottom: 0.5vw;">3era Generación (2011 - 2015)</h3>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr)); gap: 3vw;">
+                    <div class="texto-centro"><div style="width:10vw; height:10vw; margin:0 auto 1vw auto; border-radius:50%; border:3px solid var(--color-secundario); overflow:hidden; box-shadow: var(--sombra-ligera);"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;"></div><p class="negrita texto-terciario">"El Rápido"</p><p class="texto-xs texto-gris">Mateo Silva</p></div>
+                </div>
+
+                <h3 class="texto-xl semi-negrita texto-primario margen-inferior-md margen-superior-lg" style="border-bottom: 2px solid var(--color-borde); padding-bottom: 0.5vw;">4ta Generación (2016 - Actualidad)</h3>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr)); gap: 3vw;">
+                    <div class="texto-centro"><div style="width:10vw; height:10vw; margin:0 auto 1vw auto; border-radius:50%; border:3px solid var(--color-secundario); overflow:hidden; box-shadow: var(--sombra-ligera);"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=300&q=80" style="width:100%; height:100%; object-fit:cover;"></div><p class="negrita texto-terciario">"Pardillo Nuevo"</p><p class="texto-xs texto-gris">Sebastián Díaz</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-presentaciones" class="seccion-panel seccion-secundaria">
+            <div class="contenido-secundario panel-vidrio borde-redondeado-panel sombra-caja">
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg texto-centro">Nuestras Presentaciones</h2>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr)); gap: 2vw;">
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._CertamenesEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1516280440504-7c385db1e8a9?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>CERTÁMENES</h3></div>
+                    </div>
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._SerenatasEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>SERENATAS</h3></div>
+                    </div>
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._CumpleanosEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1530103862676-de8892228bb3?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>CUMPLEAÑOS</h3></div>
+                    </div>
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._GraduacionesEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>GRADUACIONES</h3></div>
+                    </div>
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._BodasEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>BODAS</h3></div>
+                    </div>
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._FeriasEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>FERIAS UNAC</h3></div>
+                    </div>
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._RondasEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1525926476840-4229b01538fc?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>RONDAS</h3></div>
+                    </div>
+                    <div class="mosaico-item" onclick="abrirTVModal('PLX..._ParchesEjemplo')" style="background-image: url('https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&q=80&w=600');">
+                        <div class="mosaico-overlay"><h3>PARCHES</h3></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-contacto" class="seccion-panel seccion-secundaria">
+            <div class="contenido-secundario panel-vidrio borde-redondeado-panel sombra-caja" style="max-width: 80vw; margin: 0 auto;">
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg texto-centro">Contacto y Contrataciones</h2>
+                <div class="grid-2-columnas" style="gap: 4vw;">
+                    <div>
+                        <h3 class="texto-xl semi-negrita texto-primario margen-inferior-md">Envíanos un mensaje</h3>
+                        <form action="https://formsubmit.co/tunaunac@gmail.com" method="POST" class="flex-columna brecha-sm">
+                            <input type="hidden" name="_subject" value="Nuevo mensaje desde la Web TUNA UNAC">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+                            
+                            <label class="texto-sm">Nombre completo</label>
+                            <input type="text" name="nombre" class="entrada-formulario borde-redondeado margen-inferior-sm" required placeholder="Tu nombre o institución">
+                            
+                            <label class="texto-sm">Correo Electrónico</label>
+                            <input type="email" name="email" class="entrada-formulario borde-redondeado margen-inferior-sm" required placeholder="tucorreo@ejemplo.com">
+                            
+                            <label class="texto-sm">Mensaje o consulta</label>
+                            <textarea name="mensaje" class="entrada-formulario borde-redondeado area-texto margen-inferior-sm" rows="5" required placeholder="Escribe aquí los detalles de tu evento..."></textarea>
+                            
+                            <button type="submit" class="boton boton-degradado borde-redondeado texto-base semi-negrita justificar-centro margen-superior-sm" style="width: 100%;">
+                                <i class="fa-solid fa-paper-plane icono-boton"></i> Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                    <div class="flex-columna justificar-espacio">
+                        <div class="margen-inferior-md">
+                            <h3 class="texto-xl semi-negrita texto-primario margen-inferior-md">Información de Contacto</h3>
+                            <p class="texto-base texto-gris margen-inferior-sm flexbox alinear-centro"><i class="fa-solid fa-phone texto-primario" style="width:2vw; min-width: 30px;"></i> +51 987 654 321</p>
+                            <p class="texto-base texto-gris margen-inferior-sm flexbox alinear-centro"><i class="fa-solid fa-envelope texto-primario" style="width:2vw; min-width: 30px;"></i> tunaunac@gmail.com</p>
+                            <p class="texto-base texto-gris margen-inferior-sm flexbox alinear-centro"><i class="fa-solid fa-location-dot texto-primario" style="width:2vw; min-width: 30px;"></i> Pabellón Cultural UNAC, Bellavista - Callao</p>
+                            
+                            <div class="flex-fila brecha-sm margen-superior-md">
+                                <a href="https://facebook.com" target="_blank" class="icono-social" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="https://instagram.com" target="_blank" class="icono-social" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://youtube.com" target="_blank" class="icono-social" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div style="border-radius: 1vw; overflow: hidden; box-shadow: var(--sombra-ligera); height: 16vw; min-height: 250px; border: 2px solid var(--color-borde);">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7656910626356!2d-77.11942708453444!3d-12.06013699145803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cbebc63b15db%3A0xc07c4ba22f42a983!2sNational%20University%20of%20Callao!5e0!3m2!1sen!2spe!4v1684349123456!5m2!1sen!2spe" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-miembros" class="seccion-panel dashboard-contenedor">
+            <aside class="dashboard-sidebar sombra-ligera" id="dashboard-sidebar">
+                <div class="perfil-usuario">
+                    <div class="avatar-usuario"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <p class="texto-sm negrita texto-terciario" id="nombre-usuario">Cargando...</p>
+                        <p class="texto-xs texto-gris" id="rol-usuario">Miembro</p>
+                    </div>
+                </div>
+                <p class="texto-xs negrita texto-gris mayusculas espaciado-letras margen-inferior-sm" style="margin-top: 1vw;">Menú</p>
+                <div class="menu-dashboard-item activo" data-seccion="repertorio-dash"><i class="fa-solid fa-music menu-dashboard-icono"></i> Repertorio</div>
+                <div class="menu-dashboard-item" data-seccion="generador"><i class="fa-solid fa-guitar menu-dashboard-icono"></i> Generador</div>
+                <div class="menu-dashboard-item" data-seccion="tareas"><i class="fa-solid fa-list-check menu-dashboard-icono"></i> Tareas</div>
+                <div class="menu-dashboard-item" data-seccion="mi-progreso"><i class="fa-solid fa-chart-simple menu-dashboard-icono"></i> Mi Progreso</div>
+                <div class="menu-dashboard-item" data-seccion="progreso-miembros"><i class="fa-solid fa-people-group menu-dashboard-icono"></i> Progreso Miembros</div>
+                <div class="menu-dashboard-item" data-seccion="ensayos"><i class="fa-solid fa-calendar-days menu-dashboard-icono"></i> Ensayos</div>
+                <div class="menu-dashboard-item" data-seccion="perfil"><i class="fa-solid fa-user-gear menu-dashboard-icono"></i> Perfil</div>
+                <div class="menu-dashboard-item admin-only" data-seccion="admin" style="display:none;"><i class="fa-solid fa-user-shield menu-dashboard-icono"></i> Panel Admin</div>
+                <div class="menu-dashboard-item" onclick="cerrarSesionDashboard()" style="margin-top: auto; border-top: 1px solid var(--color-borde); padding-top: 1.5vw;"><i class="fa-solid fa-right-from-bracket menu-dashboard-icono"></i> Cerrar Sesión</div>
+            </aside>
+            <div class="dashboard-contenido" id="dashboard-contenido"></div>
+            <!-- Burbuja para ocultar/mostrar el sidebar en modo responsive -->
+            <button class="btn-burbuja" onclick="window.toggleSidebar()" title="Ocultar/Mostrar Menú"><i class="fa-solid fa-chevron-left" id="icono-sidebar"></i></button>
+        </section>
+    </main>
+
+    <div id="modal-tv-youtube" class="modal-overlay" style="z-index: 10001 !important;">
+        <div class="tv-container">
+            <button onclick="document.getElementById('modal-tv-youtube').classList.remove('modal-activo'); document.getElementById('tv-iframe').src='';" style="position:absolute; top:-1.5vw; right:-1.5vw; background:var(--color-rojo); color:white; border-radius:50%; width:3vw; height:3vw; border:none; cursor:pointer; font-size:1.5vw; box-shadow: var(--sombra-ligera); z-index:10;"><i class="fa-solid fa-xmark"></i></button>
+            <iframe id="tv-iframe" width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="modal-login" class="modal-overlay">
+        <div class="modal-contenido borde-redondeado-panel sombra-grande texto-centro">
+            <button class="boton-cerrar-modal" onclick="cerrarModalMiembros()"><i class="fa-solid fa-xmark"></i></button>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Escudo_de_la_Universidad_Nacional_del_Callao.svg/1200px-Escudo_de_la_Universidad_Nacional_del_Callao.svg.png" style="height:4vw; min-height: 50px; margin-bottom: 0.5vw;">
+            <h2 class="texto-2xl negrita texto-primario fuente-playfair">Área de Miembros</h2>
+            <p class="texto-sm texto-gris margen-inferior-md">Ingresa tus credenciales institucionales</p>
+            
+            <form onsubmit="ingresarAreaMiembros(event)" class="texto-izquierda w-completo">
+                <label class="texto-sm">Correo Electrónico</label>
+                <div class="input-icono-wrapper"><i class="fa-solid fa-envelope"></i><input type="email" id="login-email" class="entrada-formulario borde-redondeado" required></div>
+                <label class="texto-sm">Contraseña</label>
+                <div class="input-icono-wrapper"><i class="fa-solid fa-lock"></i><input type="password" id="login-password" class="entrada-formulario borde-redondeado" required><i class="fa-solid fa-eye-slash btn-ojo" id="toggle-password" onclick="toggleVerPassword()"></i></div>
+                <div class="flexbox justificar-espacio alinear-centro margen-inferior-md"><label class="texto-xs" style="margin:0;"><input type="checkbox" id="login-remember"> Recordarme</label><a href="#" class="texto-xs texto-primario semi-negrita" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a></div>
+                <button type="submit" id="btn-login-submit" class="boton boton-degradado borde-redondeado w-completo justificar-centro texto-base semi-negrita margen-superior-sm">INGRESAR</button>
+                <p id="mensaje-login" class="texto-primario texto-sm texto-centro margen-superior-sm" style="display:none;"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-detalle-miembro" class="modal-overlay"><div class="modal-contenido borde-redondeado-panel sombra-grande" style="width:40vw; max-height:80vh; overflow-y:auto;"><button class="boton-cerrar-modal" onclick="cerrarModalDetalleMiembro()"><i class="fa-solid fa-xmark"></i></button><div id="detalle-miembro-contenido"></div></div></div>
+    <div id="modal-sistema" class="modal-overlay" style="z-index: 10000 !important;"><div class="modal-contenido borde-redondeado-panel sombra-grande texto-centro" style="width: 25vw; min-width: 300px;"><p id="mensaje-sistema-texto" class="texto-base semi-negrita texto-terciario margen-inferior-md"></p><div id="botones-sistema" class="flexbox justificar-centro brecha-sm"></div></div></div>
+
+    <script>
+        // KANGRUNAAN NGA DATA KEN INSTRUMENTO (GLOBAL)
+        window.categorias = []; window.canciones = []; window.miembros = []; window.asignaciones = []; window.progresos = {}; window.recursosPorCancion = {};
+        window.usuarioActual = null; window.rolActual = 'lector'; window.datosUsuario = {};
+
+        const instrumentosMaestros = ['guitarra', 'bandurria', 'laud', 'pandereta', 'capa', 'zampoña', 'quena', 'cuatro', 'guitarron', 'bongos', 'huevos', 'acordeon'];
+        const imagenesInstrumentos = {
+            guitarra: 'https://images.unsplash.com/photo-1514643282214-410cebc8c5cc?auto=format&fit=crop&q=80&w=600',
+            bandurria: 'https://images.unsplash.com/photo-1620922830843-dfabec4bb0ba?auto=format&fit=crop&q=80&w=600',
+            laud: 'https://images.unsplash.com/photo-1555447190-7613521e102d?auto=format&fit=crop&q=80&w=600',
+            pandereta: 'https://images.unsplash.com/photo-1522008342704-6b265b543c46?auto=format&fit=crop&q=80&w=600',
+            capa: 'https://images.unsplash.com/photo-1574883492576-92f758ba3ef0?auto=format&fit=crop&q=80&w=600',
+            zampoña: 'https://images.unsplash.com/photo-1554620025-a6e5b4b73bda?auto=format&fit=crop&q=80&w=600',
+            quena: 'https://images.unsplash.com/photo-1531862539062-8e1003ba7f82?auto=format&fit=crop&q=80&w=600',
+            cuatro: 'https://images.unsplash.com/photo-1545892557-55098ce14979?auto=format&fit=crop&q=80&w=600',
+            guitarron: 'https://images.unsplash.com/photo-1510915361894-faa8b36259ce?auto=format&fit=crop&q=80&w=600',
+            bongos: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?auto=format&fit=crop&q=80&w=600',
+            huevos: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&q=80&w=600',
+            acordeon: 'https://images.unsplash.com/photo-1525926476840-4229b01538fc?auto=format&fit=crop&q=80&w=600'
+        };
+
+        const carrerasUNAC = [
+            { facultad: "Ciencias Administrativas", carrera: "Administración" },
+            { facultad: "Ciencias Contables", carrera: "Contabilidad" },
+            { facultad: "Ciencias Económicas", carrera: "Economía" },
+            { facultad: "Ciencias Naturales y Matemáticas", carrera: "Física" },
+            { facultad: "Ciencias Naturales y Matemáticas", carrera: "Matemática" },
+            { facultad: "Ciencias de la Salud", carrera: "Enfermería" },
+            { facultad: "Ciencias de la Educación", carrera: "Educación Física" },
+            { facultad: "Ingeniería Ambiental y Recursos Naturales", carrera: "Ingeniería Ambiental y de Recursos Naturales" },
+            { facultad: "Ingeniería Eléctrica y Electrónica", carrera: "Ingeniería Eléctrica" },
+            { facultad: "Ingeniería Eléctrica y Electrónica", carrera: "Ingeniería Electrónica" },
+            { facultad: "Ingeniería Industrial y de Sistemas", carrera: "Ingeniería Industrial" },
+            { facultad: "Ingeniería Industrial y de Sistemas", carrera: "Ingeniería de Sistemas" },
+            { facultad: "Ingeniería Mecánica y de Energía", carrera: "Ingeniería Mecánica" },
+            { facultad: "Ingeniería Mecánica y de Energía", carrera: "Ingeniería en Energía" },
+            { facultad: "Ingeniería Pesquera y de Alimentos", carrera: "Ingeniería Pesquera" },
+            { facultad: "Ingeniería Pesquera y de Alimentos", carrera: "Ingeniería de Alimentos" },
+            { facultad: "Ingeniería Química", carrera: "Ingeniería Química" }
+        ];
+
+        // LOHIKA TI GENERADOR DE ACORDES
+        window.chordNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        window.instrumentTunings = { guitar: [4, 11, 7, 2, 9, 4], bandurria: [9, 4, 11, 6, 1, 8] };
+        window.chordFormulas = { 'major': [0, 4, 7], 'minor': [0, 3, 7], '7': [0, 4, 7, 10], 'maj7': [0, 4, 7, 11], 'm7': [0, 3, 7, 10], 'dim': [0, 3, 6], 'aug': [0, 4, 8], 'sus2': [0, 2, 7], 'sus4': [0, 5, 7] };
+        window.scaleFormulas = { 'major': [0, 2, 4, 5, 7, 9, 11], 'natural-minor': [0, 2, 3, 5, 7, 8, 10], 'harmonic-minor': [0, 2, 3, 5, 7, 8, 11], 'melodic-minor': [0, 2, 3, 5, 7, 9, 11], 'dorian': [0, 2, 3, 5, 7, 9, 10], 'phrygian': [0, 1, 3, 5, 7, 8, 10], 'lydian': [0, 2, 4, 6, 7, 9, 11], 'mixolydian': [0, 2, 4, 5, 7, 9, 10], 'locrian': [0, 1, 3, 5, 6, 8, 10], 'pentatonic-major': [0, 2, 4, 7, 9], 'pentatonic-minor': [0, 3, 5, 7, 10], 'blues': [0, 3, 5, 6, 7, 10] };
+        window.chordState = { tuning: [...window.instrumentTunings.guitar], key: 0, chordType: 'major', scaleType: 'major', fretCount: 12, currentNotes: [], isChord: true };
+        window.chordInitialized = false;
+
+        function mostrarMensaje(texto) {
+            document.getElementById('mensaje-sistema-texto').textContent = texto;
+            document.getElementById('botones-sistema').innerHTML = '<button class="boton boton-degradado borde-redondeado texto-sm" onclick="cerrarModalSistema()">Aceptar</button>';
+            document.getElementById('modal-sistema').classList.add('modal-activo');
+        }
+        function mostrarConfirmacion(texto, callbackAceptar) {
+            document.getElementById('mensaje-sistema-texto').textContent = texto;
+            document.getElementById('botones-sistema').innerHTML = `<button class="boton boton-degradado borde-redondeado texto-sm" id="btn-sistema-aceptar">Aceptar</button><button class="boton boton-borde-dorado borde-redondeado texto-sm" onclick="cerrarModalSistema()">Cancelar</button>`;
+            document.getElementById('modal-sistema').classList.add('modal-activo');
+            document.getElementById('btn-sistema-aceptar').onclick = () => { cerrarModalSistema(); if(callbackAceptar) callbackAceptar(); };
+        }
+        function cerrarModalSistema() { document.getElementById('modal-sistema').classList.remove('modal-activo'); }
+
+        function mostrarPanel(idPanel) {
+            document.querySelectorAll('.seccion-panel').forEach(p => p.classList.remove('panel-activo'));
+            const panel = document.getElementById('panel-' + idPanel); if (panel) panel.classList.add('panel-activo');
+            document.querySelectorAll('.enlace-navegacion').forEach(e => e.classList.remove('nav-activo'));
+            const nav = document.getElementById('nav-' + idPanel); if (nav) nav.classList.add('nav-activo');
+        }
+        
+        window.abrirTVModal = function(playlistId) {
+            const iframe = document.getElementById('tv-iframe');
+            iframe.src = `https://www.youtube.com/embed/videoseries?list=${playlistId}&autoplay=1`; 
+            document.getElementById('modal-tv-youtube').classList.add('modal-activo');
+        };
+
+        function accederAreaMiembros() {
+            if (window.usuarioActual && window.usuarioActual.email) mostrarPanel('miembros');
+            else document.getElementById('modal-login').classList.add('modal-activo');
+        }
+        function cerrarModalMiembros() { document.getElementById('modal-login').classList.remove('modal-activo'); }
+        function toggleVerPassword() {
+            const p = document.getElementById('login-password'); const i = document.getElementById('toggle-password');
+            if(p.type === "password"){ p.type = "text"; i.classList.replace('fa-eye-slash', 'fa-eye'); }
+            else { p.type = "password"; i.classList.replace('fa-eye', 'fa-eye-slash'); }
+        }
+
+        window.toggleSidebar = function() {
+            const sidebar = document.getElementById('dashboard-sidebar');
+            const icon = document.getElementById('icono-sidebar');
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.toggle('abierto');
+                icon.classList.replace(sidebar.classList.contains('abierto') ? 'fa-chevron-right' : 'fa-chevron-left', sidebar.classList.contains('abierto') ? 'fa-chevron-left' : 'fa-chevron-right');
+            } else {
+                sidebar.classList.toggle('oculto');
+                icon.classList.replace(sidebar.classList.contains('oculto') ? 'fa-chevron-left' : 'fa-chevron-right', sidebar.classList.contains('oculto') ? 'fa-chevron-right' : 'fa-chevron-left');
+            }
+        };
+
+        function setupDashboardUI() {
+            document.querySelectorAll('.menu-dashboard-item[data-seccion]').forEach(item => {
+                item.addEventListener('click', function() {
+                    const seccionId = this.dataset.seccion;
+                    document.querySelectorAll('.menu-dashboard-item').forEach(i => i.classList.remove('activo'));
+                    this.classList.add('activo');
+                    document.querySelectorAll('.dashboard-seccion').forEach(s => s.classList.remove('activo'));
+                    const target = document.getElementById('seccion-' + seccionId); if (target) target.classList.add('activo');
+                    
+                    const rep = document.getElementById('repertorio-overlays'); if(rep) rep.innerHTML = '';
+                    const tar = document.getElementById('tareas-overlays'); if(tar) tar.innerHTML = '';
+                    const adm = document.getElementById('admin-overlays'); if(adm) adm.innerHTML = '';
+                    
+                    // Rikepen ti sidebar iti mobile no agpili
+                    if(window.innerWidth <= 1024) { document.getElementById('dashboard-sidebar').classList.remove('abierto'); document.getElementById('icono-sidebar').classList.replace('fa-chevron-left', 'fa-chevron-right'); }
+                    
+                    if (seccionId === 'repertorio-dash' && window.renderizarRepertorio) window.renderizarRepertorio();
+                    if (seccionId === 'mi-progreso' && window.renderizarMiProgreso) window.renderizarMiProgreso();
+                    if (seccionId === 'progreso-miembros' && window.renderizarProgresoMiembros) window.renderizarProgresoMiembros();
+                    if (seccionId === 'tareas' && window.renderizarTareas) window.renderizarTareas();
+                    if (seccionId === 'perfil' && window.renderizarPerfil) window.renderizarPerfil();
+                    if (seccionId === 'admin' && window.renderizarPanelAdmin) window.renderizarPanelAdmin();
+                    if (seccionId === 'generador' && window.renderizarGenerador) window.renderizarGenerador();
+                });
+            });
+        }
+        
+        window.onload = function() { mostrarPanel('inicio'); };
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaigMZ_Y-aryB2JvkEojkeiRfRGwoeos0",
+            authDomain: "tunaunacweb.firebaseapp.com",
+            projectId: "tunaunacweb",
+            storageBucket: "tunaunacweb.firebasestorage.app",
+            messagingSenderId: "803401150401",
+            appId: "1:803401150401:web:f5aec3c94791b82588c940",
+            measurementId: "G-6TNCQEV3CW"
+        };
+
+        let app = initializeApp(firebaseConfig);
+        let db = getFirestore(app);
+        let auth = getAuth(app);
+        let storage = getStorage(app);
+        let unsubscribeFuncs = [];
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                window.usuarioActual = { uid: user.uid, email: user.email };
+                const docRef = doc(db, 'miembros', user.uid);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    window.datosUsuario = docSnap.data();
+                } else {
+                    window.datosUsuario = { uid: user.uid, email: user.email, nombre: user.email.split('@')[0], rol: 'lector', rango: 'Aspirante', instrumento: 'guitarra', foto: '' };
+                    await setDoc(docRef, window.datosUsuario);
+                }
+                window.rolActual = window.datosUsuario.rol || 'lector';
+                
+                document.getElementById('nombre-usuario').textContent = window.datosUsuario.nombre;
+                document.getElementById('rol-usuario').textContent = window.rolActual === 'admin' ? 'Administrador' : 'Miembro';
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = window.rolActual === 'admin' ? '' : 'none');
+                
+                cerrarModalMiembros(); 
+                iniciarSyncDeDatos();
+            } else { 
+                window.usuarioActual = null; 
+                window.rolActual = 'lector'; 
+                detenerSyncDeDatos(); 
+                mostrarPanel('inicio');
+            }
+        });
+
+        window.ingresarAreaMiembros = async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value.trim(); const pass = document.getElementById('login-password').value;
+            const btn = document.getElementById('btn-login-submit'); const msj = document.getElementById('mensaje-login');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> VALIDANDO...'; btn.disabled = true; msj.style.display = 'none';
+            try { 
+                await signInWithEmailAndPassword(auth, email, pass); 
+                btn.innerHTML = 'INGRESAR'; btn.disabled = false; setupDashboardUI(); 
+                mostrarPanel('miembros');
+            } catch (error) { 
+                btn.innerHTML = 'INGRESAR'; btn.disabled = false; 
+                if (error.code === 'auth/user-not-found') { msj.textContent = 'Saan a nakarehistro daytoy a correo.'; } 
+                else if (error.code === 'auth/wrong-password') { msj.textContent = 'Madi ti paswordmo.'; } 
+                else if (error.code === 'auth/invalid-credential') { msj.textContent = 'Madi dagiti impormasionmo.'; } 
+                else { msj.textContent = 'Biddut ti koneksion: ' + error.message; }
+                msj.style.display = 'block'; 
+            }
+        };
+
+        window.cerrarSesionDashboard = async function() {
+            try { await signOut(auth); mostrarPanel('inicio'); mostrarMensaje('Nagballigi ti panag-log-out.'); } catch(e) { console.error(e); }
+        };
+
+        function iniciarSyncDeDatos() {
+            detenerSyncDeDatos();
+            
+            const uCat = onSnapshot(collection(db, 'categorias'), snap => { window.categorias = [{ id: 'cat1', nombre: 'TODO' }, ...snap.docs.map(d => ({id: d.id, ...d.data()}))]; if(document.getElementById('seccion-repertorio-dash')?.classList.contains('activo')) window.renderizarRepertorio(); });
+            
+            const uCan = onSnapshot(collection(db, 'canciones'), snap => {
+                window.canciones = snap.docs.map(d => ({id: d.id, titulo: d.data().titulo, categoriaId: d.data().categoriaId, instrumentosHabilitados: d.data().instrumentosHabilitados || ['guitarra', 'bandurria']}));
+                window.recursosPorCancion = {};
+                snap.docs.forEach(d => {
+                    window.recursosPorCancion[d.id] = d.data().recursos || {};
+                    const habilitados = d.data().instrumentosHabilitados || ['guitarra', 'bandurria'];
+                    habilitados.forEach(inst => { if(!window.recursosPorCancion[d.id][inst]) window.recursosPorCancion[d.id][inst] = {videos:[], archivos:[]}; });
+                });
+                
+                if(document.getElementById('seccion-repertorio-dash')?.classList.contains('activo')) window.renderizarRepertorio();
+                if(window.cancionActual && !document.getElementById('overlay-recursos') && document.getElementById('repertorio-overlays').innerHTML !== '') window.abrirOverlayInstrumentos(window.cancionActual.id);
+            });
+
+            const uMie = onSnapshot(collection(db, 'miembros'), snap => { window.miembros = snap.docs.map(d => ({uid: d.id, ...d.data()})); if(window.rolActual === 'admin' && document.getElementById('seccion-admin')?.classList.contains('activo')) window.renderizarPanelAdmin(); if(document.getElementById('seccion-progreso-miembros')?.classList.contains('activo')) window.renderizarProgresoMiembrosConFiltro(document.querySelector('.categoria-boton.activo')?.textContent.toLowerCase() || 'guitarra'); });
+            const uAsi = onSnapshot(collection(db, 'asignaciones'), snap => { window.asignaciones = snap.docs.map(d => ({id: d.id, ...d.data()})); if(document.getElementById('seccion-tareas')?.classList.contains('activo')) window.filtrarTareas(document.querySelector('#filtros-tareas .filtro-boton.activo')?.textContent.trim().toLowerCase().replace(' ', '_') || 'todas'); if(window.rolActual === 'admin' && document.getElementById('lista-tareas-admin')) window.filtrarTareasAdmin('todas'); });
+
+            const uPro = onSnapshot(collection(db, 'progresos'), snap => {
+                window.progresos = {};
+                snap.docs.forEach(d => { window.progresos[d.id] = d.data(); });
+                
+                if(document.getElementById('seccion-mi-progreso')?.classList.contains('activo')) {
+                    const btnActivo = document.querySelector('#mi-progreso-filtro-container .categoria-boton.activo');
+                    const instActivo = btnActivo ? btnActivo.textContent.toLowerCase() : 'guitarra';
+                    window.renderizarMiProgresoConFiltro(instActivo);
+                }
+                if(document.getElementById('seccion-progreso-miembros')?.classList.contains('activo')) window.renderizarProgresoMiembrosConFiltro(document.querySelector('.categoria-boton.activo')?.textContent.toLowerCase() || 'guitarra');
+                if(document.getElementById('seccion-tareas')?.classList.contains('activo')) {
+                    const filtroActual = document.querySelector('#filtros-tareas .filtro-boton.activo')?.textContent.trim().toLowerCase().replace(' ', '_') || 'todas';
+                    window.filtrarTareas(filtroActual);
+                }
+
+                if (window.cancionActual) {
+                    const prog = window.progresos[`${window.usuarioActual.uid}_${window.cancionActual.id}`] || {};
+                    instrumentosMaestros.forEach(inst => {
+                        const btnContenedor = document.getElementById(`botones-progreso-${inst}`);
+                        if (btnContenedor) {
+                            const estado = prog[inst] || 'sin_iniciar';
+                            Array.from(btnContenedor.querySelectorAll('.progreso-boton')).forEach(btn => {
+                                btn.classList.remove('activo');
+                                const texto = btn.textContent.trim().toLowerCase().replace(' ', '_');
+                                if (texto === estado || (estado === 'completado' && texto === 'completado') || (estado === 'en_progreso' && texto === 'en_progreso')) {
+                                    btn.classList.add('activo');
+                                }
+                            });
+                        }
+                    });
+
+                    const instActivo = document.getElementById('titulo-instrumento-overlay')?.textContent.toLowerCase();
+                    if (instActivo) {
+                        const estado = prog[instActivo] || 'sin_iniciar';
+                        const botonesOverlay = document.querySelectorAll('#overlay-recursos .progreso-botones button');
+                        botonesOverlay.forEach(btn => {
+                            btn.classList.remove('activo');
+                            const texto = btn.textContent.trim().toLowerCase().replace(' ', '_');
+                            if (texto === estado || (estado === 'completado' && texto === 'completado') || (estado === 'en_progreso' && texto === 'en_progreso')) {
+                                btn.classList.add('activo');
+                            }
+                        });
+                    }
+                }
+            });
+
+            unsubscribeFuncs = [uCat, uCan, uMie, uAsi, uPro];
+            
+            document.getElementById('dashboard-contenido').innerHTML = `
+                <div class="dashboard-seccion activo" id="seccion-repertorio-dash"><div id="contenido-repertorio-lista"></div><div id="repertorio-overlays" class="contenedor-overlays"></div></div>
+                <div class="dashboard-seccion" id="seccion-generador"></div>
+                <div class="dashboard-seccion" id="seccion-tareas"><div id="contenido-tareas-lista"></div><div id="tareas-overlays" class="contenedor-overlays"></div></div>
+                <div class="dashboard-seccion" id="seccion-mi-progreso"></div>
+                <div class="dashboard-seccion" id="seccion-progreso-miembros"></div>
+                <div class="dashboard-seccion" id="seccion-ensayos"></div>
+                <div class="dashboard-seccion" id="seccion-perfil"></div>
+                <div class="dashboard-seccion" id="seccion-admin"><div id="contenido-admin-main"></div><div id="admin-overlays" class="contenedor-overlays"></div></div>
+            `;
+            window.renderizarRepertorio(); window.renderizarTareas(); window.renderizarMiProgreso(); window.renderizarProgresoMiembros(); window.renderizarEnsayos(); window.renderizarPerfil(); if (window.rolActual === 'admin') window.renderizarPanelAdmin();
+        }
+
+        function detenerSyncDeDatos() { unsubscribeFuncs.forEach(u => u()); unsubscribeFuncs = []; document.getElementById('dashboard-contenido').innerHTML = ''; }
+        
+        const getBasePath = (col) => collection(db, col);
+        const getDocPath = (col, docId) => doc(db, col, docId);
+
+        // -- Módulo Categorías (Firebase) --
+        window.agregarCategoria = function() {
+            const barra = document.getElementById('barra-categorias');
+            const tempDiv = document.createElement('div');
+            tempDiv.className = 'flexbox alinear-centro'; tempDiv.id = 'temp-nueva-categoria';
+            tempDiv.innerHTML = `<input class="categoria-editar-input" value="Nueva" id="input-nueva-cat"><button class="btn-icono" style="background:#dcfce7; color:#15803d; border-color:#15803d;" onclick="window.guardarNuevaCategoria()"><i class="fa-solid fa-check"></i></button><button class="btn-icono" style="background:#fee2e2; color:#b91c1c; border-color:#b91c1c;" onclick="window.cancelarNuevaCategoria()"><i class="fa-solid fa-xmark"></i></button>`;
+            barra.appendChild(tempDiv);
+        };
+        window.cancelarNuevaCategoria = function() { const t = document.getElementById('temp-nueva-categoria'); if (t) t.remove(); };
+        window.guardarNuevaCategoria = async function() {
+            const nombre = document.getElementById('input-nueva-cat').value.trim();
+            if (!nombre) return mostrarMensaje('Ingrese un nombre.');
+            await addDoc(getBasePath('categorias'), { nombre });
+            window.cancelarNuevaCategoria();
+        };
+        window.editarCategoria = function(catId) {
+            const cat = window.categorias.find(c => c.id === catId); if (!cat) return;
+            document.getElementById(`cat-${catId}`).innerHTML = `<input class="categoria-editar-input" value="${cat.nombre}" id="edit-cat-${catId}" style="width:10vw;"><button class="btn-icono" style="background:#dcfce7; color:#15803d; border-color:#15803d;" onclick="window.guardarCategoria('${catId}')"><i class="fa-solid fa-check"></i></button><button class="btn-icono" style="background:#fee2e2; color:#b91c1c; border-color:#b91c1c;" onclick="window.renderizarCategorias()"><i class="fa-solid fa-xmark"></i></button>`;
+        };
+        window.guardarCategoria = async function(catId) { const nombre = document.getElementById(`edit-cat-${catId}`).value.trim(); if (nombre) await updateDoc(getDocPath('categorias', catId), { nombre }); };
+        window.eliminarCategoria = function(catId) {
+            mostrarConfirmacion('¿Eliminar categoría? Las canciones pasarán a TODO.', async () => {
+                await deleteDoc(getDocPath('categorias', catId));
+                window.canciones.forEach(async c => { if (c.categoriaId === catId) await updateDoc(getDocPath('canciones', c.id), { categoriaId: 'cat1' }); });
+            });
+        };
+
+        // -- Módulo Canciones (Firebase) --
+        window.agregarCancion = function() {
+            const lista = document.getElementById('lista-canciones');
+            const divTemp = document.createElement('div'); divTemp.className = 'tarjeta-cancion'; divTemp.id = 'temp-nueva-cancion';
+            divTemp.innerHTML = `<div class="flexbox flex-columna brecha-sm"><input class="entrada-formulario borde-redondeado texto-sm" id="input-titulo-nueva" placeholder="Título..."><select class="entrada-formulario borde-redondeado texto-sm" id="select-categoria-nueva">${window.categorias.filter(cat => cat.id !== 'cat1').map(cat => `<option value="${cat.id}">${cat.nombre}</option>`).join('')}</select></div><div class="flexbox justificar-espacio margen-superior-sm"><button class="boton boton-degradado borde-redondeado texto-sm" onclick="window.guardarNuevaCancion()"><i class="fa-solid fa-floppy-disk icono-boton"></i> Guardar</button><button class="btn-icono" style="background:#fee2e2; color:#b91c1c;" onclick="window.cancelarNuevaCancion()"><i class="fa-solid fa-xmark"></i></button></div>`;
+            lista.prepend(divTemp);
+        };
+        window.cancelarNuevaCancion = function() { const t = document.getElementById('temp-nueva-cancion'); if (t) t.remove(); };
+        window.guardarNuevaCancion = async function() {
+            const titulo = document.getElementById('input-titulo-nueva').value.trim(); const categoriaId = document.getElementById('select-categoria-nueva').value;
+            if (!titulo) return mostrarMensaje('Debe ingresar un título');
+            let recursosIniciales = { guitarra: { videos:[], archivos:[] }, bandurria: { videos:[], archivos:[] } };
+            await addDoc(getBasePath('canciones'), { titulo, categoriaId, recursos: recursosIniciales, instrumentosHabilitados: ['guitarra', 'bandurria'] });
+            window.cancelarNuevaCancion();
+        };
+        window.editarCancion = function(canId) {
+            const cancion = window.canciones.find(c => c.id === canId); if (!cancion) return;
+            document.getElementById(`cancion-${canId}`).innerHTML = `<div class="flexbox flex-columna brecha-sm w-completo"><input class="entrada-formulario borde-redondeado texto-sm" id="edit-titulo-${canId}" value="${cancion.titulo}"><select class="entrada-formulario borde-redondeado texto-sm" id="edit-categoria-${canId}">${window.categorias.filter(cat => cat.id !== 'cat1').map(cat => `<option value="${cat.id}" ${cat.id === cancion.categoriaId ? 'selected' : ''}>${cat.nombre}</option>`).join('')}</select></div><div class="flexbox justificar-espacio alinear-centro margen-superior-sm"><button class="boton boton-degradado borde-redondeado texto-sm" onclick="window.guardarEdicionCancion('${canId}')"><i class="fa-solid fa-floppy-disk icono-boton"></i> Guardar</button><button class="btn-icono" style="background:#fee2e2; color:#b91c1c;" onclick="window.renderizarCanciones()"><i class="fa-solid fa-xmark"></i></button></div>`;
+        };
+        window.guardarEdicionCancion = async function(canId) {
+            const titulo = document.getElementById(`edit-titulo-${canId}`).value.trim(); const categoriaId = document.getElementById(`edit-categoria-${canId}`).value;
+            if (!titulo) return; await updateDoc(getDocPath('canciones', canId), { titulo, categoriaId });
+        };
+        window.eliminarCancion = function(canId) { mostrarConfirmacion('¿Eliminar permanentemente?', async () => { await deleteDoc(getDocPath('canciones', canId)); }); };
+        
+        window.habilitarInstrumentoEnCancion = async function(cancionId) {
+            const select = document.getElementById(`add-inst-${cancionId}`); if(!select || !select.value) return; const nuevoInst = select.value;
+            const cancion = window.canciones.find(c => c.id === cancionId); if(!cancion) return;
+            let listaActual = cancion.instrumentosHabilitados || [];
+            if(!listaActual.includes(nuevoInst)) {
+                listaActual.push(nuevoInst);
+                let recursosActuales = window.recursosPorCancion[cancionId] || {};
+                if(!recursosActuales[nuevoInst]) recursosActuales[nuevoInst] = { videos:[], archivos:[] };
+                await updateDoc(getDocPath('canciones', cancionId), { instrumentosHabilitados: listaActual, recursos: recursosActuales });
+                mostrarMensaje(`${nuevoInst.toUpperCase()} habilitado para esta canción.`);
+            }
+        };
+
+        window.editarRecursos = function(cancionId, instrumento, origen = 'repertorio') {
+            const rawRecursos = window.recursosPorCancion[cancionId]?.[instrumento] || {};
+            const recursos = { videos: rawRecursos.videos || [], archivos: rawRecursos.archivos || [] };
+            const overlay = document.getElementById('overlay-recursos'); if (!overlay) return;
+            
+            overlay.innerHTML = `
+                <div class="cerrar-overlay" onclick="window.abrirPanelRecursos('${cancionId}', '${instrumento}', '${origen}')"><i class="fa-solid fa-arrow-left"></i> Cancelar</div>
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-md">Editando ${instrumento}</h2>
+                <div class="panel-vidrio borde-redondeado-panel p-3 sombra-ligera margen-inferior-md" style="padding: 2vw; background: white;">
+                    <h4 class="texto-lg semi-negrita texto-terciario margen-inferior-sm"><i class="fa-brands fa-youtube texto-rojo"></i> Videos</h4>
+                    <div id="inputs-videos-overlay">${recursos.videos.map(v => `<input class="entrada-formulario margen-inferior-sm" value="${v.url}" placeholder="URL YouTube">`).join('')}</div>
+                    <button class="boton boton-borde-dorado borde-redondeado texto-sm margen-superior-sm" onclick="window.agregarInputVideoOverlay()"><i class="fa-solid fa-plus"></i> Agregar video</button>
+                </div>
+                <div class="panel-vidrio borde-redondeado-panel p-3 sombra-ligera" style="padding: 2vw; background: white;">
+                    <div class="flexbox justificar-espacio alinear-centro margen-inferior-sm">
+                        <h4 class="texto-lg semi-negrita texto-terciario">Archivos Adicionales</h4>
+                        <div class="flexbox brecha-sm"><button class="btn-icono" style="color:#e74c3c; border-color:#e74c3c;" onclick="window.agregarInputArchivoOverlay('pdf')"><i class="fa-solid fa-file-pdf"></i></button><button class="btn-icono" style="color:#2ecc71; border-color:#2ecc71;" onclick="window.agregarInputArchivoOverlay('audio')"><i class="fa-solid fa-file-audio"></i></button></div>
+                    </div>
+                    <div id="inputs-archivos-overlay">${recursos.archivos.map(a => `
+                        <div class="flexbox brecha-sm margen-inferior-sm alinear-centro bg-light p-2 borde-redondeado" style="background:#f8fafc; padding: 1vw;" data-tipo="${a.tipo}">
+                            <i class="fa-solid fa-${a.tipo === 'pdf' ? 'file-pdf' : 'file-audio'}" style="font-size:1.5vw; color:${a.tipo === 'pdf' ? '#e74c3c' : '#2ecc71'};"></i>
+                            <input class="entrada-formulario" value="${a.nombre}" placeholder="Nombre descriptivo">
+                            <input class="entrada-formulario" value="${a.url}" placeholder="Enlace al archivo">
+                        </div>`).join('')}
+                    </div>
+                </div>
+                <div class="texto-centro margen-superior-lg"><button class="boton boton-degradado borde-redondeado texto-base semi-negrita p-3" onclick="window.guardarRecursos('${cancionId}', '${instrumento}', '${origen}')"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button></div>
+            `;
+        };
+
+        window.guardarRecursos = async function(cancionId, instrumento, origen = 'repertorio') {
+            const videos = Array.from(document.querySelectorAll('#inputs-videos-overlay input')).map(inp => ({ url: inp.value })).filter(v => v.url);
+            const archivos = Array.from(document.querySelectorAll('#inputs-archivos-overlay > div')).map(div => {
+                const inputs = div.querySelectorAll('input'); 
+                return { nombre: inputs[0].value.trim(), url: inputs[1].value.trim(), tipo: div.getAttribute('data-tipo') || (inputs[1].value.trim().toLowerCase().includes('.pdf') ? 'pdf' : 'audio') };
+            }).filter(a => a.nombre && a.url);
+            
+            let currentRecursos = window.recursosPorCancion[cancionId] || {};
+            currentRecursos[instrumento] = { videos, archivos };
+            await updateDoc(getDocPath('canciones', cancionId), { recursos: currentRecursos });
+            window.abrirPanelRecursos(cancionId, instrumento, origen);
+        };
+
+        window.cambiarProgreso = async function(cancionId, instrumento, valor) {
+            const docId = `${window.usuarioActual.uid}_${cancionId}`;
+            if (!window.progresos[docId]) window.progresos[docId] = {};
+            window.progresos[docId][instrumento] = valor;
+            await setDoc(getDocPath('progresos', docId), { [instrumento]: valor }, { merge: true });
+        };
+
+        // ==========================================
+        //  RENDER UI - REPERTORIO
+        // ==========================================
+        window.renderizarRepertorio = function() {
+            const cont = document.getElementById('contenido-repertorio-lista'); if(!cont) return;
+            cont.innerHTML = `<h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Repertorio</h2><div class="flexbox justificar-espacio alinear-centro margen-inferior-md"><div class="flexbox alinear-centro brecha-sm" id="barra-categorias" style="flex-wrap:wrap;"></div></div>${window.rolActual === 'admin' ? '<button class="boton-agregar margen-inferior-md" onclick="window.agregarCancion()"><i class="fa-solid fa-plus"></i> Agregar nueva canción</button>' : ''}<div id="lista-canciones"></div>`;
+            window.renderizarCategorias(); window.renderizarCanciones();
+        };
+
+        window.renderizarCategorias = function() {
+            const barra = document.getElementById('barra-categorias');
+            barra.innerHTML = window.categorias.map(cat => `<div class="flexbox alinear-centro" id="cat-${cat.id}"><span class="categoria-boton ${cat.nombre === 'TODO' ? 'activo' : ''}" data-cat="${cat.id}" onclick="window.filtrarPorCategoria('${cat.id}')">${cat.nombre}</span>${cat.nombre !== 'TODO' && window.rolActual === 'admin' ? `<button class="btn-icono" style="color: var(--color-primario);" onclick="window.editarCategoria('${cat.id}')"><i class="fa-solid fa-pen"></i></button><button class="btn-icono" onclick="window.eliminarCategoria('${cat.id}')"><i class="fa-solid fa-xmark"></i></button>` : ''}</div>`).join('');
+            if(window.rolActual === 'admin') barra.innerHTML += `<button class="btn-icono" style="border-style:dashed; margin-left:1vw;" onclick="window.agregarCategoria()"><i class="fa-solid fa-plus"></i></button>`;
+        };
+
+        window.filtrarPorCategoria = function(catId) { document.querySelectorAll('.categoria-boton').forEach(b => b.classList.remove('activo')); document.querySelector(`.categoria-boton[data-cat="${catId}"]`).classList.add('activo'); window.renderizarCanciones(catId); };
+
+        window.renderizarCanciones = function(filtroCat = null) {
+            const lista = document.getElementById('lista-canciones');
+            let filtradas = window.canciones; if (filtroCat && filtroCat !== 'cat1') filtradas = window.canciones.filter(c => c.categoriaId === filtroCat);
+            filtradas.sort((a, b) => a.titulo.localeCompare(b.titulo));
+            lista.innerHTML = filtradas.map(c => `
+                <div class="tarjeta-cancion flexbox justificar-espacio alinear-centro" id="cancion-${c.id}">
+                    <div onclick="window.abrirOverlayInstrumentos('${c.id}')" style="flex:1; cursor:pointer;"><strong class="texto-base texto-terciario">${c.titulo}</strong></div>
+                    ${window.rolActual === 'admin' ? `<div class="flexbox brecha-sm"><button class="btn-icono" style="color: var(--color-primario);" onclick="event.stopPropagation(); window.editarCancion('${c.id}')" title="Editar"><i class="fa-solid fa-pen"></i></button><button class="btn-icono" style="color: var(--color-rojo);" onclick="event.stopPropagation(); window.eliminarCancion('${c.id}')" title="Eliminar"><i class="fa-solid fa-trash"></i></button></div>` : ''}
+                </div>`).join('');
+        };
+
+        window.abrirOverlayInstrumentos = function(canId) {
+            const cancion = window.canciones.find(c => c.id === canId); if (!cancion) return;
+            window.cancionActual = cancion;
+            const contenedor = document.getElementById('repertorio-overlays'); contenedor.innerHTML = '';
+            const overlay = document.createElement('div'); overlay.className = 'overlay-cancion';
+            const prog = window.progresos[`${window.usuarioActual.uid}_${cancion.id}`] || {};
+            const instParaMostrar = cancion.instrumentosHabilitados || ['guitarra', 'bandurria'];
+
+            let html = `<div class="cerrar-overlay" onclick="document.getElementById('repertorio-overlays').innerHTML=''; window.cancionActual=null;"><i class="fa-solid fa-arrow-left"></i> Volver</div><h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">${cancion.titulo}</h2><div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(14vw, 1fr)); gap: 2vw;">
+                    ${instParaMostrar.map(inst => {
+                        const estado = prog[inst] || 'sin_iniciar';
+                        return `
+                            <div class="instrumento-card" onclick="window.abrirPanelRecursos('${cancion.id}', '${inst}', 'repertorio')">
+                                <img src="${imagenesInstrumentos[inst] || imagenesInstrumentos['guitarra']}" class="instrumento-img">
+                                <div class="instrumento-info">
+                                    <h3 class="texto-lg negrita texto-terciario mayusculas margen-inferior-sm">${inst}</h3>
+                                    <div class="progreso-botones flex-columna brecha-sm" id="botones-progreso-${inst}" style="width: 100%;">
+                                        <button class="progreso-boton ${estado === 'sin_iniciar' ? 'activo' : ''}" onclick="event.stopPropagation(); window.cambiarProgreso('${cancion.id}', '${inst}', 'sin_iniciar')">Sin iniciar</button>
+                                        <button class="progreso-boton ${estado === 'en_progreso' ? 'activo' : ''}" onclick="event.stopPropagation(); window.cambiarProgreso('${cancion.id}', '${inst}', 'en_progreso')">En progreso</button>
+                                        <button class="progreso-boton ${estado === 'completado' ? 'activo' : ''}" onclick="event.stopPropagation(); window.cambiarProgreso('${cancion.id}', '${inst}', 'completado')">Completado</button>
+                                    </div>
+                                </div>
+                            </div>`;
+                    }).join('')}`;
+            
+            if (window.rolActual === 'admin') {
+                const disponibles = instrumentosMaestros.filter(i => !instParaMostrar.includes(i));
+                if (disponibles.length > 0) {
+                    html += `<div class="instrumento-card p-3 bg-light" style="justify-content:center; border: 2px dashed var(--color-borde); box-shadow:none; padding: 2vw;"><h4 class="texto-base semi-negrita texto-gris margen-inferior-sm texto-centro"><i class="fa-solid fa-gear"></i> Panel Admin</h4><select id="add-inst-${cancion.id}" class="entrada-formulario margen-inferior-sm"><option value="">Selecciona un instrumento...</option>${disponibles.map(i => `<option value="${i}">${i.toUpperCase()}</option>`).join('')}</select><button class="boton boton-degradado borde-redondeado w-completo justificar-centro texto-sm" onclick="window.habilitarInstrumentoEnCancion('${cancion.id}')"><i class="fa-solid fa-plus"></i> Habilitar tutorial</button></div>`;
+                }
+            }
+            html += `</div>`; overlay.innerHTML = html; contenedor.appendChild(overlay);
+        };
+
+        window.abrirPanelRecursos = function(cancionId, instrumento, origen) {
+            const cancion = window.canciones.find(c => c.id === cancionId); if (!cancion) return;
+            window.cancionActual = cancion;
+            const contenedor = origen === 'repertorio' ? document.getElementById('repertorio-overlays') : document.getElementById('tareas-overlays');
+            const existing = document.getElementById('overlay-recursos'); if (existing) existing.remove();
+            const overlay = document.createElement('div'); overlay.className = 'overlay-cancion'; overlay.id = 'overlay-recursos';
+            
+            const rawRecursos = window.recursosPorCancion[cancionId]?.[instrumento] || {};
+            const recursos = { videos: rawRecursos.videos || [], archivos: rawRecursos.archivos || [] };
+            const prog = window.progresos[`${window.usuarioActual.uid}_${cancionId}`] || {};
+            const estado = prog[instrumento] || 'sin_iniciar';
+            
+            const disponiblesInst = cancion.instrumentosHabilitados || ['guitarra'];
+            const idx = disponiblesInst.indexOf(instrumento);
+            const prevInst = disponiblesInst[(idx - 1 + disponiblesInst.length) % disponiblesInst.length];
+            const nextInst = disponiblesInst[(idx + 1) % disponiblesInst.length];
+
+            overlay.innerHTML = `
+                <div class="cerrar-overlay" onclick="this.parentElement.remove(); if('${origen}' === 'tareas') window.cancionActual=null;"><i class="fa-solid fa-arrow-left"></i> Volver</div>
+                <div class="nav-recursos">
+                    <button class="boton boton-borde-dorado borde-redondeado texto-sm" onclick="window.abrirPanelRecursos('${cancionId}', '${prevInst}', '${origen}')"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="texto-centro"><h2 class="texto-2xl negrita texto-terciario fuente-playfair" style="margin-bottom:0.2vw;">${cancion.titulo}</h2><h3 class="texto-base semi-negrita texto-primario mayusculas" id="titulo-instrumento-overlay">${instrumento}</h3></div>
+                    <button class="boton boton-borde-dorado borde-redondeado texto-sm" onclick="window.abrirPanelRecursos('${cancionId}', '${nextInst}', '${origen}')"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="flexbox justificar-centro margen-inferior-md">
+                    <div class="progreso-botones" style="width: auto; background: var(--color-fondo-dashboard); padding: 0.5vw; border-radius: 2vw; border: 1px solid var(--color-borde);">
+                        <span class="texto-xs negrita texto-gris mayusculas" style="display:flex; align-items:center; margin-right: 1vw; padding-left: 0.5vw;">Mi Progreso:</span>
+                        <button class="progreso-boton ${estado === 'sin_iniciar' ? 'activo' : ''}" onclick="window.cambiarProgreso('${cancionId}', '${instrumento}', 'sin_iniciar')">Sin iniciar</button>
+                        <button class="progreso-boton ${estado === 'en_progreso' ? 'activo' : ''}" onclick="window.cambiarProgreso('${cancionId}', '${instrumento}', 'en_progreso')">En progreso</button>
+                        <button class="progreso-boton ${estado === 'completado' ? 'activo' : ''}" onclick="window.cambiarProgreso('${cancionId}', '${instrumento}', 'completado')">Completado</button>
+                    </div>
+                </div>
+                <div class="grid-2-columnas" style="gap: 3vw;">
+                    <div class="panel-vidrio borde-redondeado-panel p-3 sombra-ligera" style="padding: 2vw; background: white;">
+                        <h4 class="texto-xl semi-negrita texto-terciario margen-inferior-md border-bottom"><i class="fa-brands fa-youtube texto-rojo"></i> Videos</h4>
+                        ${recursos.videos.length > 0 ? `
+                            <div class="video-container" style="position:relative; border-radius: 0.8vw; overflow:hidden; box-shadow: var(--sombra-ligera);">
+                                <iframe id="video-iframe" width="100%" height="250" src="${window.getYouTubeEmbedUrl(recursos.videos[0].url)}" frameborder="0" allowfullscreen></iframe>
+                                <div class="flexbox justificar-espacio alinear-centro p-2 bg-white" style="padding: 1vw; background: #f8fafc; border-top: 1px solid var(--color-borde);">
+                                    <button onclick="window.cambiarVideo(-1, ${recursos.videos.length})" ${recursos.videos.length <= 1 ? 'disabled' : ''} class="btn-icono"><i class="fa-solid fa-chevron-left"></i> Anterior</button>
+                                    <span id="video-indice" class="texto-sm semi-negrita texto-gris">1 de ${recursos.videos.length}</span>
+                                    <button onclick="window.cambiarVideo(1, ${recursos.videos.length})" ${recursos.videos.length <= 1 ? 'disabled' : ''} class="btn-icono">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        ` : '<div class="texto-centro p-3 bg-light borde-redondeado" style="padding:2vw; background:#f8fafc; border:1px dashed #cbd5e1;"><i class="fa-solid fa-video-slash texto-2xl texto-gris margen-inferior-sm"></i><p class="texto-gris texto-sm">Aún no hay videos para este instrumento.</p></div>'}
+                    </div>
+                    <div class="panel-vidrio borde-redondeado-panel p-3 sombra-ligera" style="padding: 2vw; background: white;">
+                        <h4 class="texto-xl semi-negrita texto-terciario margen-inferior-md border-bottom"><i class="fa-solid fa-folder-open texto-primario"></i> Archivos</h4>
+                        ${recursos.archivos.length > 0 ? recursos.archivos.map(a => `
+                            <div class="flexbox alinear-centro justificar-espacio" style="padding: 1vw; border: 1px solid var(--color-borde); border-radius: 0.5vw; margin-bottom: 0.8vw;">
+                                <a href="${a.url}" target="_blank" style="text-decoration:none; display:flex; align-items:center; gap:1vw; flex:1;">
+                                    <i class="fa-solid fa-${a.tipo === 'pdf' ? 'file-pdf' : 'file-audio'}" style="font-size:2.5vw; color:${a.tipo === 'pdf' ? '#e74c3c' : '#2ecc71'};"></i>
+                                    <div><span class="texto-base semi-negrita texto-terciario" style="display:block;">${a.nombre}</span></div>
+                                </a>
+                            </div>`).join('') : '<div class="texto-centro p-3 bg-light borde-redondeado" style="padding:2vw; background:#f8fafc; border:1px dashed #cbd5e1;"><p class="texto-gris texto-sm">No hay archivos.</p></div>'}
+                    </div>
+                </div>
+                ${window.rolActual === 'admin' ? `<div class="texto-centro margen-superior-lg"><button class="boton boton-degradado borde-redondeado texto-sm" onclick="window.editarRecursos('${cancionId}', '${instrumento}', '${origen}')"><i class="fa-solid fa-pen"></i> Editar recursos</button></div>` : ''}
+            `;
+            contenedor.appendChild(overlay); window.videosActuales = recursos.videos; window.videoActualIdx = 0;
+        };
+
+        window.agregarInputVideoOverlay = function() {
+            const inp = document.createElement('input'); inp.className = 'entrada-formulario margen-inferior-sm'; inp.placeholder = 'URL YouTube';
+            document.getElementById('inputs-videos-overlay').appendChild(inp);
+        };
+        
+        window.agregarInputArchivoOverlay = function(tipo) {
+            const div = document.createElement('div'); div.className = 'flexbox brecha-sm margen-inferior-sm alinear-centro bg-light p-2 borde-redondeado'; div.style.cssText = 'background:#f8fafc; padding: 1vw;'; div.setAttribute('data-tipo', tipo);
+            div.innerHTML = `<i class="fa-solid fa-${tipo==='pdf'?'file-pdf':'file-audio'}" style="font-size:1.5vw; color:${tipo==='pdf'?'#e74c3c':'#2ecc71'};"></i><input class="entrada-formulario" placeholder="Nombre descriptivo"><input class="entrada-formulario" placeholder="Enlace al archivo">`;
+            document.getElementById('inputs-archivos-overlay').appendChild(div);
+        };
+
+        window.cambiarVideo = function(dir, total) { if (!window.videosActuales || total === 0) return; window.videoActualIdx = (window.videoActualIdx + dir + total) % total; document.getElementById('video-iframe').src = window.getYouTubeEmbedUrl(window.videosActuales[window.videoActualIdx].url); document.getElementById('video-indice').textContent = `${window.videoActualIdx+1} de ${total}`; };
+        window.getYouTubeEmbedUrl = function(url) { const match = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/); return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : url; };
+
+        // ==========================================
+        //  FOTO DE PERFIL (FIREBASE STORAGE)
+        // ==========================================
+        window.subirFotoPerfil = async function(event) {
+            const file = event.target.files[0]; if (!file) return;
+            mostrarMensaje('Subiendo foto, por favor espera...'); document.getElementById('botones-sistema').innerHTML = ''; 
+            try {
+                const storageRef = ref(storage, `miembros_fotos/${window.usuarioActual.uid}_${Date.now()}`);
+                await uploadBytes(storageRef, file); const url = await getDownloadURL(storageRef);
+                window.datosUsuario.foto = url; await updateDoc(getDocPath('miembros', window.usuarioActual.uid), { foto: url });
+                document.getElementById('img-perfil-preview').src = url; document.querySelector('.avatar-usuario').innerHTML = `<img src="${url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                cerrarModalSistema(); mostrarMensaje('Foto actualizada exitosamente.');
+            } catch(e) { cerrarModalSistema(); mostrarMensaje('Error al subir la foto: ' + e.message); }
+        };
+
+        // ==========================================
+        //  PANEL ADMIN, PERFIL KEN GENERADOR
+        // ==========================================
+        window.renderizarPerfil = function() {
+            const facultades = [...new Set(carrerasUNAC.map(c => c.facultad))];
+            let opcionesCarrera = '<option value="">Seleccione su carrera...</option>';
+            facultades.forEach(fac => {
+                opcionesCarrera += `<optgroup label="${fac}">`;
+                carrerasUNAC.filter(c => c.facultad === fac).forEach(c => {
+                    const selected = (window.datosUsuario.carrera === c.carrera) ? 'selected' : '';
+                    opcionesCarrera += `<option value="${c.carrera}" ${selected}>${c.carrera}</option>`;
+                });
+                opcionesCarrera += `</optgroup>`;
+            });
+
+            document.getElementById('seccion-perfil').innerHTML = `
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Mi Perfil</h2>
+                <div class="panel-vidrio borde-redondeado-panel sombra-caja" style="padding: 3vw; background: white;">
+                    <div class="flexbox alinear-centro brecha-md pb-3" style="border-bottom: 1px solid var(--color-borde); padding-bottom: 1.5vw; margin-bottom: 2vw;">
+                        <div style="position: relative; display: inline-block;">
+                            <img id="img-perfil-preview" src="${window.datosUsuario.foto || 'https://placehold.co/150'}" style="width: 8vw; height: 8vw; border-radius: 50%; object-fit: cover; border: 3px solid var(--color-secundario);">
+                            <label for="input-foto-perfil" class="btn-icono sombra-ligera" style="position: absolute; bottom: 0; right: 0; background: white; border-radius: 50%; width: 2.5vw; height: 2.5vw; padding: 0; display:flex; justify-content:center; align-items:center; cursor:pointer;"><i class="fa-solid fa-camera"></i></label>
+                            <input type="file" id="input-foto-perfil" style="display:none;" accept="image/*" onchange="window.subirFotoPerfil(event)">
+                        </div>
+                        <div>
+                            <h3 class="texto-2xl negrita texto-terciario" id="display-nombre">${window.datosUsuario.nombre}</h3>
+                            <p class="texto-base texto-gris"><i class="fa-solid fa-envelope"></i> ${window.datosUsuario.email}</p>
+                            <span class="texto-xs negrita mayusculas" style="background: var(--color-secundario); color: white; padding: 0.3vw 0.8vw; border-radius: 1vw; margin-top: 0.5vw; display: inline-block;">Rango: ${window.datosUsuario.rango}</span>
+                        </div>
+                    </div>
+                    <form onsubmit="window.guardarPerfil(event)" class="grid-2-columnas" style="gap: 2vw;">
+                        <div><label>Nombre Completo</label><input class="entrada-formulario" id="perfil-nombre" value="${window.datosUsuario.nombre || ''}" required></div>
+                        <div><label>Apodo Tuno</label><input class="entrada-formulario" id="perfil-apodo" value="${window.datosUsuario.apodo || ''}"></div>
+                        <div><label>Edad</label><input class="entrada-formulario" type="number" id="perfil-edad" value="${window.datosUsuario.edad || ''}"></div>
+                        <div><label>Instrumento Principal</label>
+                            <select class="entrada-formulario" id="perfil-instrumento">${instrumentosMaestros.map(i => `<option value="${i}" ${window.datosUsuario.instrumento === i ? 'selected' : ''}>${i.toUpperCase()}</option>`).join('')}</select>
+                        </div>
+                        <div><label>Carrera Académica</label><select class="entrada-formulario" id="perfil-carrera" onchange="document.getElementById('perfil-facultad-display').value = carrerasUNAC.find(c => c.carrera === this.value)?.facultad || '';">${opcionesCarrera}</select></div>
+                        <div><label>Facultad</label><input class="entrada-formulario" id="perfil-facultad-display" value="${window.datosUsuario.facultad || ''}" disabled style="background-color: #f1f5f9; cursor: not-allowed; color: #64748b;"></div>
+                        <div><label>Ciclo / Estado</label><input class="entrada-formulario" id="perfil-ciclo" value="${window.datosUsuario.ciclo || ''}" placeholder="Ej. 5to ciclo, Egresado"></div>
+                        <div style="grid-column: span 2; display: flex; justify-content: flex-end; margin-top: 1vw;">
+                            <button type="submit" class="boton boton-degradado borde-redondeado texto-base semi-negrita padding-x-lg"><i class="fa-solid fa-user-check"></i> Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>`;
+        };
+
+        window.guardarPerfil = async function(event) {
+            event.preventDefault();
+            const carreraSeleccionada = document.getElementById('perfil-carrera').value;
+            const carreraObj = carrerasUNAC.find(c => c.carrera === carreraSeleccionada);
+            const facultadGuardar = carreraObj ? carreraObj.facultad : '';
+
+            const actualizaciones = {
+                nombre: document.getElementById('perfil-nombre').value, apodo: document.getElementById('perfil-apodo').value, edad: document.getElementById('perfil-edad').value, facultad: facultadGuardar, carrera: carreraSeleccionada, ciclo: document.getElementById('perfil-ciclo').value, instrumento: document.getElementById('perfil-instrumento').value
+            };
+            await updateDoc(getDocPath('miembros', window.usuarioActual.uid), actualizaciones);
+            Object.assign(window.datosUsuario, actualizaciones);
+            document.getElementById('display-nombre').textContent = actualizaciones.nombre; document.getElementById('nombre-usuario').textContent = actualizaciones.nombre;
+            mostrarMensaje('¡Tu perfil ha sido actualizado!');
+        };
+
+        window.renderizarPanelAdmin = function() { 
+            document.getElementById('contenido-admin-main').innerHTML = `
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Panel de Administración</h2>
+                <div class="grid-2-columnas margen-inferior-lg">
+                    <div class="panel-vidrio borde-redondeado-panel sombra-ligera" style="padding:2vw; cursor:pointer; border-left: 0.4vw solid var(--color-primario); background: white;" onclick="window.mostrarAsignarTarea()">
+                        <h3 class="texto-xl negrita texto-terciario"><i class="fa-solid fa-plus-circle texto-primario"></i> Asignar Nueva Tarea</h3>
+                        <p class="texto-sm texto-gris">Delega canciones e instrumentos a los miembros.</p>
+                    </div>
+                    <div class="panel-vidrio borde-redondeado-panel sombra-ligera" style="padding:2vw; cursor:pointer; border-left: 0.4vw solid var(--color-secundario); background: white;" onclick="window.mostrarTareasAsignadas()">
+                        <h3 class="texto-xl negrita texto-terciario"><i class="fa-solid fa-list-check texto-secundario"></i> Ver Tareas Asignadas</h3>
+                        <p class="texto-sm texto-gris">Supervisa qué tareas están pendientes.</p>
+                    </div>
+                </div>
+                
+                <h3 class="texto-xl negrita texto-terciario margen-superior-lg margen-inferior-md">Gestión de Usuarios</h3>
+                <div id="lista-usuarios-admin"></div>
+                
+                <div class="panel-vidrio borde-redondeado-panel sombra-caja p-3 margen-superior-lg" style="padding:2vw; background: white;">
+                    <h3 class="texto-xl negrita texto-terciario margen-inferior-sm">Invitar nuevo aspirante</h3>
+                    <div class="flexbox alinear-centro brecha-md">
+                        <input type="email" id="nuevo-aspirante-email" class="entrada-formulario" placeholder="correo@universidad.pe" style="flex:1;">
+                        <button class="boton boton-degradado borde-redondeado texto-sm" onclick="window.crearAspirante()"><i class="fa-solid fa-user-plus"></i> Añadir Aspirante</button>
+                    </div>
+                </div>
+            `; 
+            window.cargarUsuariosAdmin();
+        };
+
+        window.cargarUsuariosAdmin = function() {
+            const div = document.getElementById('lista-usuarios-admin'); if(!div) return;
+            div.innerHTML = window.miembros.map(usr => `
+                <div class="flexbox alinear-centro justificar-espacio borde-redondeado sombra-ligera" style="padding:1vw 1.5vw; margin-bottom:0.8vw; background: white; border: 1px solid var(--color-borde);">
+                    <div class="flexbox alinear-centro brecha-md" style="cursor:pointer;" onclick="window.abrirModalDetalleMiembro('${usr.uid}')">
+                        <img src="${usr.foto || 'https://placehold.co/50'}" style="width:3vw; height:3vw; border-radius:50%; object-fit:cover;">
+                        <div><span class="texto-base semi-negrita texto-terciario" style="display:block;">${usr.nombre || 'Sin Nombre'}</span><span class="texto-sm texto-gris">${usr.email}</span></div>
+                    </div>
+                    <div class="flexbox brecha-sm alinear-centro">
+                        <span class="texto-xs negrita mayusculas" style="background: #f1f5f9; padding: 0.3vw 0.8vw; border-radius: 1vw;">${usr.rango}</span>
+                        ${usr.rol === 'admin' ? '<span class="texto-xs negrita mayusculas texto-blanco" style="background:var(--color-primario); padding: 0.3vw 0.8vw; border-radius: 1vw;">ADMIN</span>' : ''}
+                        <button class="btn-icono" onclick="window.cambiarRol('${usr.uid}', 'admin')" ${usr.rol === 'admin' ? 'disabled' : ''}><i class="fa-solid fa-arrow-up"></i></button>
+                        <button class="btn-icono" onclick="window.cambiarRol('${usr.uid}', 'lector')" ${usr.rol === 'lector' ? 'disabled' : ''}><i class="fa-solid fa-arrow-down"></i></button>
+                    </div>
+                </div>`).join('');
+        };
+
+        window.abrirModalDetalleMiembro = function(uid) {
+            const u = window.miembros.find(m => m.uid === uid); if (!u) return;
+            const instMayus = (u.instrumento || '-').charAt(0).toUpperCase() + (u.instrumento || '-').slice(1);
+            
+            document.getElementById('detalle-miembro-contenido').innerHTML = `
+                <div class="texto-centro pb-3" style="border-bottom: 1px solid var(--color-borde);">
+                    <img src="${u.foto || 'https://placehold.co/100'}" style="width:6vw; height:6vw; border-radius:50%; object-fit:cover; margin-bottom: 1vw;">
+                    <h3 class="texto-2xl negrita texto-terciario">${u.nombre || 'Sin nombre'}</h3><p class="texto-base texto-gris">${u.email}</p>
+                </div>
+                <div class="grid-2-columnas" style="margin:1.5vw 0; gap: 1vw;">
+                    <div class="p-2 bg-light borde-redondeado" style="background: #f8fafc; padding: 1vw;"><strong>Apodo:</strong> ${u.apodo || '-'}</div>
+                    <div class="p-2 bg-light borde-redondeado" style="background: #f8fafc; padding: 1vw;"><strong>Edad:</strong> ${u.edad || '-'}</div>
+                    <div class="p-2 bg-light borde-redondeado" style="background: #f8fafc; padding: 1vw;"><strong>Carrera:</strong> ${u.carrera || '-'}</div>
+                    <div class="p-2 bg-light borde-redondeado" style="background: #f8fafc; padding: 1vw;"><strong>Facultad:</strong> ${u.facultad || '-'}</div>
+                    <div class="p-2 bg-light borde-redondeado" style="background: #f8fafc; padding: 1vw;"><strong>Instrumento:</strong> ${instMayus}</div>
+                    <div class="p-2 bg-light borde-redondeado" style="background: #f8fafc; padding: 1vw;"><strong>Ciclo:</strong> ${u.ciclo || '-'}</div>
+                    <div style="grid-column: span 2; padding: 1vw;">
+                        <label><strong>Rango Institucional:</strong></label>
+                        <select id="select-rango" class="entrada-formulario borde-redondeado texto-base margen-superior-sm">
+                            <option value="Aspirante" ${u.rango === 'Aspirante' ? 'selected' : ''}>Aspirante</option>
+                            <option value="Pardillo" ${u.rango === 'Pardillo' ? 'selected' : ''}>Pardillo</option>
+                            <option value="Tuno" ${u.rango === 'Tuno' ? 'selected' : ''}>Tuno</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="texto-centro"><button class="boton boton-degradado borde-redondeado texto-base semi-negrita w-completo justificar-centro" onclick="window.actualizarRango('${uid}')">Guardar Rango</button></div>
+            `;
+            document.getElementById('modal-detalle-miembro').classList.add('modal-activo');
+        };
+        
+        window.cerrarModalDetalleMiembro = function() { document.getElementById('modal-detalle-miembro').classList.remove('modal-activo'); };
+
+        window.actualizarRango = async function(uid) {
+            const rango = document.getElementById('select-rango').value;
+            await updateDoc(getDocPath('miembros', uid), { rango });
+            window.cerrarModalDetalleMiembro(); mostrarMensaje('Rango actualizado');
+        };
+
+        window.cambiarRol = async function(uid, nuevoRol) {
+            await updateDoc(getDocPath('miembros', uid), { rol: nuevoRol });
+            mostrarMensaje('Rol actualizado en el sistema.');
+        };
+
+        window.crearAspirante = async function() {
+            const email = document.getElementById('nuevo-aspirante-email').value.trim();
+            if (!email) return mostrarMensaje('Ingrese un correo electrónico.');
+            const tempPass = "tunaunac2026";
+            try {
+                const secondaryApp = initializeApp(firebaseConfig, "SecondaryAppForCreation");
+                const secondaryAuth = getAuth(secondaryApp);
+                const userCred = await createUserWithEmailAndPassword(secondaryAuth, email, tempPass);
+                const newUid = userCred.user.uid;
+                await signOut(secondaryAuth);
+                
+                await setDoc(getDocPath('miembros', newUid), { uid: newUid, email: email, nombre: '', apodo: '', edad: '', facultad: '', carrera: '', ciclo: '', instrumento: 'guitarra', foto: '', rol: 'lector', rango: 'Aspirante' });
+                document.getElementById('nuevo-aspirante-email').value = '';
+                mostrarMensaje(`Cuenta creada para ${email}. Contraseña inicial: ${tempPass}`);
+            } catch (error) {
+                if(error.code === 'auth/email-already-in-use') mostrarMensaje('Ese correo ya está registrado en el sistema.');
+                else mostrarMensaje('Error al crear usuario: ' + error.message);
+            }
+        };
+
+        // ==========================================
+        //  TAREAS (ADMIN Y MIEMBROS)
+        // ==========================================
+        window.mostrarAsignarTarea = function() {
+            const contenedor = document.getElementById('admin-overlays'); contenedor.innerHTML = '';
+            const overlay = document.createElement('div'); overlay.className = 'overlay-cancion';
+            let html = `
+                <div class="cerrar-overlay" onclick="document.getElementById('admin-overlays').innerHTML='';"><i class="fa-solid fa-arrow-left"></i> Volver</div>
+                <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Asignar Nueva Tarea</h2>
+                <div class="panel-vidrio borde-redondeado-panel sombra-caja p-3" style="padding: 2vw; background: white;"><h3 class="texto-xl negrita texto-terciario margen-inferior-md">Selecciona la canción a asignar</h3>`;
+            
+            [...window.canciones].sort((a,b) => a.titulo.localeCompare(b.titulo)).forEach(c => {
+                html += `<div class="tarjeta-cancion"><div class="flexbox justificar-espacio alinear-centro"><strong class="texto-lg texto-terciario">${c.titulo}</strong><button class="boton boton-borde-dorado borde-redondeado texto-sm" onclick="window.toggleMiembros('${c.id}')">Ver Miembros <i class="fa-solid fa-chevron-down"></i></button></div>
+                    <div id="miembros-${c.id}" style="display:none; margin-top:1.5vw; border-top: 1px dashed var(--color-borde); padding-top: 1vw;">
+                        ${window.miembros.map(m => {
+                            const instAAsignar = c.instrumentosHabilitados || ['guitarra', 'bandurria'];
+                            return `<div class="flexbox alinear-centro justificar-espacio margen-inferior-sm" style="background: #f8fafc; padding: 0.8vw; border-radius: 0.5vw;">
+                                <div><img src="${m.foto || 'https://placehold.co/30'}" class="miembro-avatar" style="width:2vw; height:2vw; vertical-align:middle;"> <span class="semi-negrita texto-sm">${m.nombre || m.email}</span></div>
+                                <div>${instAAsignar.map(inst => {
+                                    const ya = window.asignaciones.some(a => a.usuarioId === m.uid && a.cancionId === c.id && a.instrumento === inst);
+                                    return `<button class="btn-icono" style="${ya?'background:var(--color-primario);color:white;':''}" onclick="window.crearAsignacion('${m.uid}', '${c.id}', '${inst}')" ${ya?'disabled':''}>${inst.substring(0,3).toUpperCase()}</button>`;
+                                }).join('')}</div>
+                            </div>`;
+                        }).join('')}
+                    </div></div>`;
+            });
+            html += '</div>'; overlay.innerHTML = html; contenedor.appendChild(overlay);
+        };
+        window.toggleMiembros = function(id) { const d = document.getElementById(`miembros-${id}`); d.style.display = d.style.display === 'none' ? 'block' : 'none'; };
+
+        window.crearAsignacion = async function(usuarioId, cancionId, instrumento) { await addDoc(getBasePath('asignaciones'), { usuarioId, cancionId, instrumento, fechaCreacion: new Date().toISOString() }); mostrarMensaje('Tarea asignada exitosamente.'); window.mostrarAsignarTarea(); };
+
+        window.mostrarTareasAsignadas = function() {
+            const contenedor = document.getElementById('admin-overlays'); contenedor.innerHTML = '';
+            const overlay = document.createElement('div'); overlay.className = 'overlay-cancion';
+            overlay.innerHTML = `<div class="cerrar-overlay" onclick="document.getElementById('admin-overlays').innerHTML='';"><i class="fa-solid fa-arrow-left"></i> Volver</div><h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Tareas Asignadas Globales</h2><div class="panel-vidrio borde-redondeado-panel sombra-caja" style="padding: 2vw; background: white;"><div class="flexbox brecha-sm margen-inferior-md"><button class="filtro-boton activo" onclick="window.filtrarTareasAdmin('todas')">Todas</button><button class="filtro-boton" onclick="window.filtrarTareasAdmin('sin_iniciar')">Sin iniciar</button><button class="filtro-boton" onclick="window.filtrarTareasAdmin('en_progreso')">En progreso</button><button class="filtro-boton" onclick="window.filtrarTareasAdmin('completado')">Completadas</button></div><div id="lista-tareas-admin"></div></div>`;
+            contenedor.appendChild(overlay); window.filtrarTareasAdmin('todas');
+        };
+
+        window.filtrarTareasAdmin = function(estado) {
+            let html = '';
+            window.asignaciones.forEach(asig => {
+                const cancion = window.canciones.find(c => c.id === asig.cancionId); const miembro = window.miembros.find(m => m.uid === asig.usuarioId);
+                if (!cancion || !miembro) return;
+                const est = (window.progresos[`${asig.usuarioId}_${asig.cancionId}`] || {})[asig.instrumento] || 'sin_iniciar';
+                if (estado !== 'todas' && est !== estado) return;
+                html += `<div class="tarjeta-tarea flexbox justificar-espacio alinear-centro" style="background: #f8fafc;"><div class="flexbox alinear-centro brecha-md"><img src="${miembro.foto || 'https://placehold.co/30'}" class="miembro-avatar" style="width:2.5vw; height:2.5vw;"><div><strong class="texto-base texto-terciario">${cancion.titulo}</strong> <span class="texto-xs texto-gris mayusculas">(${asig.instrumento})</span><br><span class="texto-xs texto-gris">Responsable: ${miembro.nombre || miembro.email}</span></div></div><div><span class="texto-xs borde-redondeado texto-blanco" style="padding:0.3vw 0.6vw; background:${est==='completado'?'#2ecc71':est==='en_progreso'?'var(--color-primario)':'#94a3b8'};">${est.replace('_',' ')}</span></div></div>`;
+            });
+            document.getElementById('lista-tareas-admin').innerHTML = html || '<p class="texto-gris texto-sm texto-centro">No hay tareas.</p>';
+        };
+
+        window.renderizarTareas = function() { document.getElementById('contenido-tareas-lista').innerHTML = `<h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Mis Tareas</h2><div class="flexbox brecha-sm margen-inferior-md" id="filtros-tareas"><button class="filtro-boton activo" onclick="window.filtrarTareas('todas')">Todas</button><button class="filtro-boton" onclick="window.filtrarTareas('sin_iniciar')">Sin iniciar</button><button class="filtro-boton" onclick="window.filtrarTareas('en_progreso')">En progreso</button><button class="filtro-boton" onclick="window.filtrarTareas('completado')">Completadas</button></div><div id="lista-tareas"></div>`; window.filtrarTareas('todas'); };
+        
+        window.filtrarTareas = function(estado) {
+            document.querySelectorAll('#filtros-tareas .filtro-boton').forEach(b => { b.classList.remove('activo'); if (b.textContent.trim().toLowerCase().replace(' ', '_') === estado || (estado === 'todas' && b.textContent.trim().toLowerCase() === 'todas')) b.classList.add('activo'); });
+            const mis = window.asignaciones.filter(a => a.usuarioId === window.usuarioActual.uid); let html = '';
+            mis.forEach(asig => {
+                const cancion = window.canciones.find(c => c.id === asig.cancionId); if (!cancion) return;
+                const est = (window.progresos[`${window.usuarioActual.uid}_${asig.cancionId}`] || {})[asig.instrumento] || 'sin_iniciar';
+                if (estado !== 'todas' && est !== estado) return;
+                html += `<div class="tarjeta-tarea flexbox justificar-espacio alinear-centro" onclick="window.abrirPanelRecursos('${asig.cancionId}', '${asig.instrumento}', 'tareas')"><div class="flexbox alinear-centro brecha-md"><img src="${imagenesInstrumentos[asig.instrumento] || imagenesInstrumentos['guitarra']}" style="width: 4vw; height: 4vw; object-fit: cover; border-radius: 0.5vw;"><div><strong class="texto-lg texto-terciario">${cancion.titulo}</strong><span class="texto-sm cursiva texto-gris mayusculas" style="display:block;">${asig.instrumento}</span></div></div><div class="progreso-botones" style="width: auto;"><button class="progreso-boton ${est === 'sin_iniciar' ? 'activo' : ''}" onclick="event.stopPropagation(); window.cambiarProgreso('${asig.cancionId}', '${asig.instrumento}', 'sin_iniciar')">Sin iniciar</button><button class="progreso-boton ${est === 'en_progreso' ? 'activo' : ''}" onclick="event.stopPropagation(); window.cambiarProgreso('${asig.cancionId}', '${asig.instrumento}', 'en_progreso')">En progreso</button><button class="progreso-boton ${est === 'completado' ? 'activo' : ''}" onclick="event.stopPropagation(); window.cambiarProgreso('${asig.cancionId}', '${asig.instrumento}', 'completado')">Completado</button></div></div>`;
+            });
+            document.getElementById('lista-tareas').innerHTML = html || '<p>No hay tareas.</p>';
+        };
+
+        // ==========================================
+        //  REDISEÑO DE "MI PROGRESO"
+        // ==========================================
+        window.renderizarMiProgreso = function() {
+            const cont = document.getElementById('seccion-mi-progreso'); if(!cont) return;
+            cont.innerHTML = `<h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Mi Progreso</h2><div id="mi-progreso-filtro-container"></div><div id="mi-progreso-tabla-container"></div>`;
+            window.renderizarMiProgresoConFiltro('guitarra'); // Por defecto abre en guitarra
+        };
+
+        window.renderizarMiProgresoConFiltro = function(instrumento) {
+            const contFiltro = document.getElementById('mi-progreso-filtro-container'); const contTabla = document.getElementById('mi-progreso-tabla-container');
+            if(!contFiltro || !contTabla) return;
+            contFiltro.innerHTML = `<div class="flexbox brecha-sm margen-inferior-md" style="flex-wrap: wrap;">${instrumentosMaestros.map(inst => `<button class="categoria-boton ${inst === instrumento ? 'activo' : ''}" style="margin-bottom:0.5vw;" onclick="window.renderizarMiProgresoConFiltro('${inst}')">${inst.toUpperCase()}</button>`).join('')}</div>`;
+            let filas = window.canciones.map(c => {
+                const prog = window.progresos[`${window.usuarioActual.uid}_${c.id}`] || {}; const estado = prog[instrumento] || 'sin_iniciar';
+                return `<tr><td class="texto-izquierda semi-negrita texto-terciario">${c.titulo}</td><td><div class="progreso-botones justificar-centro"><button class="progreso-boton ${estado === 'sin_iniciar' ? 'activo' : ''}" onclick="window.cambiarProgreso('${c.id}', '${instrumento}', 'sin_iniciar')">Sin iniciar</button><button class="progreso-boton ${estado === 'en_progreso' ? 'activo' : ''}" onclick="window.cambiarProgreso('${c.id}', '${instrumento}', 'en_progreso')">En progreso</button><button class="progreso-boton ${estado === 'completado' ? 'activo' : ''}" onclick="window.cambiarProgreso('${c.id}', '${instrumento}', 'completado')">Completado</button></div></td></tr>`;
+            }).join('');
+            contTabla.innerHTML = `<div style="overflow-x: auto;"><table class="tabla-progreso"><thead><tr><th class="texto-izquierda">Canción</th><th>Estado (${instrumento.toUpperCase()})</th></tr></thead><tbody>${filas}</tbody></table></div>`;
+        };
+
+        window.renderizarProgresoMiembros = function() { document.getElementById('seccion-progreso-miembros').innerHTML = `<h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-lg">Progreso Global</h2><div id="tabla-progreso-miembros"></div>`; window.renderizarProgresoMiembrosConFiltro('guitarra'); };
+        
+        window.renderizarProgresoMiembrosConFiltro = function(instrumento) {
+            const cont = document.getElementById('tabla-progreso-miembros'); if(!cont) return;
+            let html = `<div class="flexbox brecha-sm margen-inferior-md" style="flex-wrap: wrap;">${instrumentosMaestros.map(inst => `<button class="categoria-boton ${inst === instrumento ? 'activo' : ''}" style="margin-bottom:0.5vw;" onclick="window.renderizarProgresoMiembrosConFiltro('${inst}')">${inst.toUpperCase()}</button>`).join('')}</div>`;
+            html += '<div style="overflow-x:auto;"><table class="tabla-progreso"><thead><tr><th class="texto-izquierda">Repertorio</th>';
+            window.miembros.forEach(m => html += `<th><img src="${m.foto || 'https://placehold.co/50'}" class="miembro-avatar"><br><span class="texto-xs">${m.apodo || m.nombre.split(' ')[0]}</span></th>`);
+            html += '</tr></thead><tbody>';
+            window.canciones.forEach(c => {
+                html += `<tr><td class="texto-izquierda semi-negrita">${c.titulo}</td>`;
+                window.miembros.forEach(m => {
+                    const est = (window.progresos[`${m.uid}_${c.id}`] || {})[instrumento] || 'sin_iniciar';
+                    html += `<td>${est === 'completado' ? '<i class="fa-solid fa-circle-check" style="color:#2ecc71;"></i>' : est === 'en_progreso' ? '<i class="fa-solid fa-spinner texto-primario"></i>' : '<i class="fa-solid fa-circle-minus texto-gris"></i>'}</td>`;
+                }); html += '</tr>';
+            });
+            cont.innerHTML = html + '</tbody></table></div>';
+        };
+
+        // ==========================================
+        //  GENERADOR DE ACORDES KEN ESCALAS
+        // ==========================================
+        window.renderizarGenerador = function() { 
+            const cont = document.getElementById('seccion-generador');
+            if(!cont) return;
+            cont.innerHTML = `
+                <div class="chord-generator panel-vidrio borde-redondeado-panel sombra-caja" style="padding: 3vw; background: white;">
+                    <h2 class="texto-2xl negrita texto-terciario fuente-playfair margen-inferior-sm">🎸 Generador de Acordes y Escalas</h2>
+                    <p class="texto-base texto-gris margen-inferior-lg">Sukuem dagiti acordes ken triadas nga ar-aramaten ti Tuna kadagiti kantada.</p>
+                    
+                    <div class="chord-panels-container">
+                        <div class="chord-panel">
+                            <h3 class="chord-panel-title">Afinación</h3>
+                            <div class="chord-tuning-controls" id="chord-tuning-controls"></div>
+                            <div class="flexbox brecha-sm margen-superior-sm margen-inferior-md">
+                                <button class="chord-button" id="chord-add-string">+ Cuerda</button>
+                                <button class="chord-button" id="chord-remove-string">- Cuerda</button>
+                            </div>
+                            <div class="chord-control-group">
+                                <label for="chord-instrument" class="texto-sm">Instrumento:</label>
+                                <select class="chord-select" id="chord-instrument">
+                                    <option value="guitar">Guitarra</option>
+                                    <option value="bandurria">Bandurria</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="chord-panel">
+                            <h3 class="chord-panel-title">Tonalidad ken Tipo</h3>
+                            <div class="chord-control-group">
+                                <label for="chord-key" class="texto-sm">Tonalidad:</label>
+                                <select class="chord-select" id="chord-key">
+                                    <option value="0">C</option><option value="1">C#/Db</option><option value="2">D</option><option value="3">D#/Eb</option>
+                                    <option value="4">E</option><option value="5">F</option><option value="6">F#/Gb</option><option value="7">G</option>
+                                    <option value="8">G#/Ab</option><option value="9">A</option><option value="10">A#/Bb</option><option value="11">B</option>
+                                </select>
+                            </div>
+
+                            <div class="chord-control-group">
+                                <label for="chord-type" class="texto-sm">Tipo de Acorde:</label>
+                                <select class="chord-select" id="chord-type">
+                                    <option value="major" data-formula="1 3 5">Mayor</option><option value="minor" data-formula="1 b3 5">Menor</option>
+                                    <option value="7" data-formula="1 3 5 b7">Séptima</option><option value="maj7" data-formula="1 3 5 7">Séptima Mayor</option>
+                                    <option value="m7" data-formula="1 b3 5 b7">Séptima Menor</option><option value="dim" data-formula="1 b3 b5">Disminuido</option>
+                                    <option value="aug" data-formula="1 3 #5">Aumentado</option><option value="sus2" data-formula="1 2 5">Sus2</option>
+                                    <option value="sus4" data-formula="1 4 5">Sus4</option>
+                                </select>
+                                <div class="chord-formula margen-superior-sm" id="chord-formula">Fórmula: 1 3 5</div>
+                            </div>
+
+                            <div class="chord-control-group">
+                                <label for="chord-scale-type" class="texto-sm">Tipo de Escala:</label>
+                                <select class="chord-select" id="chord-scale-type">
+                                    <option value="major" data-formula="1 2 3 4 5 6 7">Mayor (Jónica)</option>
+                                    <option value="natural-minor" data-formula="1 2 b3 4 5 b6 b7">Menor Natural (Eólica)</option>
+                                    <option value="harmonic-minor" data-formula="1 2 b3 4 5 b6 7">Menor Armónica</option>
+                                    <option value="melodic-minor" data-formula="1 2 b3 4 5 6 7">Menor Melódica</option>
+                                    <option value="dorian" data-formula="1 2 b3 4 5 6 b7">Dórico</option>
+                                    <option value="phrygian" data-formula="1 b2 b3 4 5 b6 b7">Frigio</option>
+                                    <option value="lydian" data-formula="1 2 3 #4 5 6 7">Lidio</option>
+                                    <option value="mixolydian" data-formula="1 2 3 4 5 6 b7">Mixolidio</option>
+                                    <option value="locrian" data-formula="1 b2 b3 4 b5 b6 b7">Locrio</option>
+                                    <option value="pentatonic-major" data-formula="1 2 3 5 6">Pentatónica Mayor</option>
+                                    <option value="pentatonic-minor" data-formula="1 b3 4 5 b7">Pentatónica Menor</option>
+                                    <option value="blues" data-formula="1 b3 4 b5 5 b7">Blues</option>
+                                </select>
+                                <div class="chord-formula margen-superior-sm" id="chord-scale-formula">Fórmula: 1 2 3 4 5 6 7</div>
+                            </div>
+
+                            <div class="flexbox brecha-sm margen-superior-md">
+                                <button class="boton boton-degradado borde-redondeado texto-sm w-completo justificar-centro" id="chord-generate-chord">Generar Acorde</button>
+                                <button class="boton boton-borde-dorado borde-redondeado texto-sm w-completo justificar-centro" id="chord-generate-scale">Generar Escala</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flexbox justificar-espacio alinear-centro margen-superior-sm">
+                        <label class="texto-sm negrita texto-terciario">Trastes: <input type="number" id="chord-fret-count" min="0" max="30" value="12" class="entrada-formulario" style="width: 5vw; display: inline-block;"></label>
+                        <button class="btn-icono" id="chord-reset"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+                    </div>
+
+                    <div class="chord-fretboard-container">
+                        <div class="chord-fretboard" id="chord-fretboard"></div>
+                    </div>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                if(!window.chordInitialized) {
+                    window.initializeChordEventListeners();
+                    window.chordInitialized = true;
+                }
+                window.resetChord();
+            }, 100);
+        };
+
+        window.initializeChordTuningControls = function() {
+            const tuningControls = document.getElementById('chord-tuning-controls');
+            tuningControls.innerHTML = '';
+            for (let i = 0; i < window.chordState.tuning.length; i++) {
+                const stringRow = document.createElement('div'); stringRow.className = 'chord-string-row';
+                const stringLabel = document.createElement('div'); stringLabel.className = 'chord-string-label'; stringLabel.textContent = `${i + 1}`;
+                const select = document.createElement('select'); select.className = 'chord-select chord-string-tuning'; select.dataset.stringIndex = i;
+                
+                window.chordNotes.forEach((note, index) => {
+                    const option = document.createElement('option'); option.value = index; option.textContent = note;
+                    option.selected = index === window.chordState.tuning[i]; select.appendChild(option);
+                });
+                
+                const tuningAdjust = document.createElement('div'); tuningAdjust.className = 'chord-tuning-adjust';
+                const downBtn = document.createElement('button'); downBtn.className = 'chord-button'; downBtn.textContent = '-'; downBtn.dataset.stringIndex = i; downBtn.dataset.direction = 'down';
+                const upBtn = document.createElement('button'); upBtn.className = 'chord-button'; upBtn.textContent = '+'; upBtn.dataset.stringIndex = i; upBtn.dataset.direction = 'up';
+                
+                tuningAdjust.appendChild(downBtn); tuningAdjust.appendChild(upBtn);
+                stringRow.appendChild(stringLabel); stringRow.appendChild(select); stringRow.appendChild(tuningAdjust);
+                tuningControls.appendChild(stringRow);
+            }
+        };
+
+        window.initializeChordEventListeners = function() {
+            document.getElementById('chord-add-string').addEventListener('click', () => { if(window.chordState.tuning.length < 12) { window.chordState.tuning.push(4); window.initializeChordTuningControls(); window.renderChordFretboard(); } });
+            document.getElementById('chord-remove-string').addEventListener('click', () => { if(window.chordState.tuning.length > 4) { window.chordState.tuning.pop(); window.initializeChordTuningControls(); window.renderChordFretboard(); } });
+            document.getElementById('chord-tuning-controls').addEventListener('change', function(e) { if(e.target.classList.contains('chord-string-tuning')) { window.chordState.tuning[parseInt(e.target.dataset.stringIndex)] = parseInt(e.target.value); window.renderChordFretboard(); } });
+            document.getElementById('chord-tuning-controls').addEventListener('click', function(e) {
+                if(e.target.classList.contains('chord-button') && (e.target.dataset.direction === 'up' || e.target.dataset.direction === 'down')) {
+                    const idx = parseInt(e.target.dataset.stringIndex);
+                    if(e.target.dataset.direction === 'up') window.chordState.tuning[idx] = (window.chordState.tuning[idx] + 1) % 12;
+                    else window.chordState.tuning[idx] = (window.chordState.tuning[idx] - 1 + 12) % 12;
+                    document.querySelector(`.chord-string-tuning[data-string-index="${idx}"]`).value = window.chordState.tuning[idx];
+                    window.renderChordFretboard();
+                }
+            });
+            document.getElementById('chord-instrument').addEventListener('change', function() { window.chordState.tuning = [...window.instrumentTunings[this.value]]; window.initializeChordTuningControls(); window.renderChordFretboard(); });
+            document.getElementById('chord-key').addEventListener('change', function() { window.chordState.key = parseInt(this.value); });
+            document.getElementById('chord-type').addEventListener('change', function() { window.chordState.chordType = this.value; window.updateChordFormulas(); });
+            document.getElementById('chord-scale-type').addEventListener('change', function() { window.chordState.scaleType = this.value; window.updateChordFormulas(); });
+            document.getElementById('chord-generate-chord').addEventListener('click', function() { window.chordState.isChord = true; window.generateChord(); });
+            document.getElementById('chord-generate-scale').addEventListener('click', function() { window.chordState.isChord = false; window.generateScale(); });
+            document.getElementById('chord-fret-count').addEventListener('change', function() { window.chordState.fretCount = parseInt(this.value); window.renderChordFretboard(); });
+            document.getElementById('chord-reset').addEventListener('click', window.resetChord);
+        };
+
+        window.updateChordFormulas = function() {
+            const chordF = document.getElementById('chord-type').selectedOptions[0].dataset.formula;
+            const scaleF = document.getElementById('chord-scale-type').selectedOptions[0].dataset.formula;
+            document.getElementById('chord-formula').textContent = `Fórmula: ${chordF}`;
+            document.getElementById('chord-scale-formula').textContent = `Fórmula: ${scaleF}`;
+        };
+
+        window.generateChord = function() { const formula = window.chordFormulas[window.chordState.chordType]; window.chordState.currentNotes = formula.map(interval => (window.chordState.key + interval) % 12); window.renderChordFretboard(); };
+        window.generateScale = function() { const formula = window.scaleFormulas[window.chordState.scaleType]; window.chordState.currentNotes = formula.map(interval => (window.chordState.key + interval) % 12); window.renderChordFretboard(); };
+        window.resetChord = function() {
+            window.chordState.tuning = [...window.instrumentTunings.guitar]; window.chordState.key = 0; window.chordState.chordType = 'major'; window.chordState.scaleType = 'major'; window.chordState.fretCount = 12; window.chordState.currentNotes = [];
+            document.getElementById('chord-key').value = 0; document.getElementById('chord-type').value = 'major'; document.getElementById('chord-scale-type').value = 'major'; document.getElementById('chord-fret-count').value = 12; document.getElementById('chord-instrument').value = 'guitar';
+            window.initializeChordTuningControls(); window.updateChordFormulas(); window.renderChordFretboard();
+        };
+
+        window.createChordFretMarkers = function() {
+            const markers = {}; const standardMarkers = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24]; const doubleMarkers = [12, 24];
+            standardMarkers.forEach(fret => { if (fret <= window.chordState.fretCount) markers[fret] = { double: doubleMarkers.includes(fret) }; });
+            return markers;
+        };
+
+        window.renderChordFretboard = function() {
+            const fretboard = document.getElementById('chord-fretboard'); fretboard.innerHTML = '';
+            const fretMarkers = window.createChordFretMarkers();
+            
+            for (let i = 0; i < window.chordState.tuning.length; i++) {
+                const stringElement = document.createElement('div'); stringElement.className = 'chord-string';
+                const openFret = document.createElement('div'); openFret.className = 'chord-fret';
+                const openNoteIndex = window.chordState.tuning[i];
+                const isOpenNoteInCurrent = window.chordState.currentNotes.includes(openNoteIndex);
+                const isOpenNoteRoot = window.chordState.currentNotes.length > 0 && openNoteIndex === window.chordState.currentNotes[0];
+                
+                if (isOpenNoteInCurrent) {
+                    const noteElement = document.createElement('div'); noteElement.className = `chord-note chord-note-open ${isOpenNoteRoot ? 'chord-note-root' : ''}`;
+                    noteElement.textContent = window.chordNotes[openNoteIndex]; openFret.appendChild(noteElement);
+                }
+                stringElement.appendChild(openFret);
+                
+                for (let fret = 1; fret <= window.chordState.fretCount; fret++) {
+                    const fretElement = document.createElement('div'); fretElement.className = 'chord-fret';
+                    if (fretMarkers[fret]) {
+                        const marker = document.createElement('div'); marker.className = fretMarkers[fret].double ? 'chord-fret-marker-double' : 'chord-fret-marker';
+                        if (fretMarkers[fret].double) marker.innerHTML = '<span></span><span></span>';
+                        fretElement.appendChild(marker);
+                    }
+                    const noteIndex = (window.chordState.tuning[i] + fret) % 12;
+                    const isNoteInCurrent = window.chordState.currentNotes.includes(noteIndex);
+                    const isNoteRoot = window.chordState.currentNotes.length > 0 && noteIndex === window.chordState.currentNotes[0];
+                    
+                    if (isNoteInCurrent) {
+                        const noteElement = document.createElement('div'); noteElement.className = `chord-note chord-note-fretted ${isNoteRoot ? 'chord-note-root' : ''}`;
+                        noteElement.textContent = window.chordNotes[noteIndex]; fretElement.appendChild(noteElement);
+                    }
+                    stringElement.appendChild(fretElement);
+                }
+                fretboard.appendChild(stringElement);
+            }
+            const fretNumberRow = document.createElement('div'); fretNumberRow.className = 'chord-fret-number-row';
+            const openFretNumber = document.createElement('div'); openFretNumber.className = 'chord-fret-number'; openFretNumber.textContent = '0'; fretNumberRow.appendChild(openFretNumber);
+            for (let fret = 1; fret <= window.chordState.fretCount; fret++) {
+                const fretNumber = document.createElement('div'); fretNumber.className = 'chord-fret-number'; fretNumber.textContent = fret; fretNumberRow.appendChild(fretNumber);
+            }
+            fretboard.appendChild(fretNumberRow);
+        };
+
+        window.renderizarEnsayos = function() { document.getElementById('seccion-ensayos').innerHTML = `<h2 class="texto-2xl negrita texto-terciario fuente-playfair">Calendario de Ensayos</h2><p>En desarrollo.</p>`; };
+    </script>
+</body>
+</html>
