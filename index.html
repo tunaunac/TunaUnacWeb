@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TUNA UNAC - Universidad Nacional del Callao</title>
+    
+    <!-- Fuentes y Recursos Externos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Hoja de Estilos Global -->
+    <link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+     <!-- ===== HEADER ===== -->
+    <header class="encabezado-principal">
+        <div class="contenedor-logo" onclick="window.mostrarPanel('inicio')">
+            <img src="ESCUDO.png" alt="Escudo UNAC" class="logo-unac" onerror="this.src='https://placehold.co/100x100/0ea5e9/ffffff?text=UNAC'" />
+            <div>
+                <h1 class="titulo-unac">TUNA UNAC</h1>
+                <p class="subtitulo-unac">UNIVERSIDAD NACIONAL DEL CALLAO</p>
+            </div>
+        </div>
+        
+       <nav class="navegacion-principal">
+    <a onclick="window.mostrarPanel('inicio')" id="nav-inicio" class="enlace-navegacion nav-activo">INICIO</a>
+    <a onclick="window.mostrarPanel('historia')" id="nav-historia" class="enlace-navegacion">HISTORIA</a>
+    <a onclick="window.mostrarPanel('integrantes')" id="nav-integrantes" class="enlace-navegacion">INTEGRANTES</a>
+    <a onclick="window.mostrarPanel('presentaciones')" id="nav-presentaciones" class="enlace-navegacion">PRESENTACIONES</a>
+    <a onclick="window.mostrarPanel('contacto')" id="nav-contacto" class="enlace-navegacion">CONTACTO</a>
+    <!-- Nuevo botón para el menú hamburguesa -->
+    <button onclick="window.accederAreaMiembros()" class="btn-primario boton-miembros boton-miembros-nav" style="display:none;">
+        <i class="fa-solid fa-user-group"></i> ÁREA MIEMBROS
+    </button>
+</nav>
+        
+        <button onclick="window.accederAreaMiembros()" class="btn-primario boton-miembros">
+            <i class="fa-solid fa-user-group"></i> ÁREA MIEMBROS
+        </button>
+
+        <!-- Botón Hamburguesa en móviles -->
+        <button class="menu-hamburguesa"><i class="fa-solid fa-bars"></i></button>
+    </header>
+
+
+    <!-- ===== MAIN ===== -->
+    <main class="contenedor-principal">
+
+        <!-- ====== PANEL INICIO (30/70 Layout con Candelabros) ====== -->
+        <section id="panel-inicio" class="seccion-panel panel-activo">
+            <div class="landing-contenedor">
+                
+                <!-- Columna Izquierda (30%) -->
+                <div class="landing-izquierdo">
+                    <img src="CANDELABROSUPERIOR.jpg" alt="Candelabro" class="landing-candelabro" onerror="this.src='https://placehold.co/100x150/ffffff/bfa86e?text=Cand'" />
+                    
+                    <h2 class="landing-titulo">TUNA UNAC</h2>
+                    <p class="landing-desc">Tradición que se canta, historia que se vive en el primer puerto.</p>
+                    
+                    <img src="cANDELABROINFERIOR.jpg" alt="Candelabro" class="landing-candelabro inferior" onerror="this.src='https://placehold.co/100x150/ffffff/bfa86e?text=Cand'" />
+                    
+                    <p class="landing-siguenos">SÍGUENOS EN</p>
+                    <div class="landing-redes">
+                        <a href="#" class="landing-icono-red"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="landing-icono-red"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="landing-icono-red"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+
+                    <div class="landing-botones">
+                        <a onclick="window.mostrarPanel('contacto')" class="btn-primario">CONTÁCTANOS</a>
+                        <a onclick="window.mostrarPanel('historia')" class="btn-secundario">NUESTRA HISTORIA</a>
+                    </div>
+                </div>
+                
+                <!-- Columna Derecha (70%) -->
+                <div class="landing-derecho">
+                    <div class="landing-imagen-principal">
+                        <img src="https://images.unsplash.com/photo-1514643282214-410cebc8c5cc?auto=format&fit=crop&q=80&w=1200" alt="Tuna 1">
+                    </div>
+                    <div class="landing-imagen-secundaria">
+                        <img src="https://images.unsplash.com/photo-1522008342704-6b265b543c46?auto=format&fit=crop&q=80&w=800" alt="Tuna 2">
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- ====== PANEL HISTORIA ====== -->
+        <section id="panel-historia" class="seccion-panel">
+            <div class="contenedor-interno">
+                <div id="historia-encabezado">
+                    <span class="etiqueta-seccion">Nuestras Raíces</span>
+                    <h2 class="titulo-seccion">Historia de la Tuna UNAC</h2>
+                    <div class="divisor-decorativo"></div>
+                </div>
+
+                <div id="historia-bloque-principal">
+                    <div id="historia-textos">
+                        <p class="parrafo-base">La Tuna de la Universidad Nacional del Callao (UNAC) nace con el noble propósito de mantener viva la tradición universitaria y romántica que se remonta a las antiguas universidades europeas del siglo XIII. Con nuestras capas, jubones y cintas multicolores, los estudiantes chalacos decidimos llevar alegría, poesía y hermandad a cada rincón del primer puerto y de todo el Perú.</p>
+                        <p class="parrafo-base">Nuestra hermandad se forjó al son de la bandurria, el laúd y la guitarra, cantando bajo los balcones en las noches de luna y recorriendo las plazas en las clásicas "rondas". No somos solo músicos; somos guardianes de una historia y embajadores culturales de nuestra Alma Máter.</p>
+                        <p class="parrafo-base">A lo largo de los años, nuestra "heroica y andariega" Tuna ha participado en innumerables certámenes nacionales e internacionales, cosechando premios a Mejor Instrumental, Mejor Pandereta y Mejor Capa, pero, sobre todo, ganando los aplausos y el cariño de nuestro público.</p>
+                    </div>
+                    <div id="historia-imagen-wrapper">
+                        <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80" alt="Historia Tuna UNAC" id="imagen-historia-destacada" />
+                    </div>
+                </div>
+
+                <div id="historia-bloque-tarjetas">
+                    <div class="tarjeta-informativa">
+                        <i class="fa-solid fa-guitar icono-tarjeta"></i>
+                        <h3 class="titulo-tarjeta">El Mester</h3>
+                        <p class="texto-tarjeta">Bandurrias, laúdes, guitarras y panderetas conforman nuestra orquesta tradicional, heredada de los antiguos juglares y trovadores.</p>
+                    </div>
+                    <div class="tarjeta-informativa">
+                        <i class="fa-solid fa-graduation-cap icono-tarjeta"></i>
+                        <h3 class="titulo-tarjeta">La Beca</h3>
+                        <p class="texto-tarjeta">La banda en forma de 'V' que cruza nuestro pecho, adornada con el escudo de la UNAC, símbolo máximo de pertenencia e investidura tudesca.</p>
+                    </div>
+                    <div class="tarjeta-informativa">
+                        <i class="fa-solid fa-ribbon icono-tarjeta"></i>
+                        <h3 class="titulo-tarjeta">La Capa</h3>
+                        <p class="texto-tarjeta">Compañera fiel de viajes nocturnos, adornada con escudos de los lugares visitados y cintas bordadas que cuentan historias de amor y amistad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== PANEL INTEGRANTES ====== -->
+        <section id="panel-integrantes" class="seccion-panel">
+            <div class="contenedor-interno">
+                <div id="integrantes-encabezado">
+                    <span class="etiqueta-seccion">Nuestra Familia</span>
+                    <h2 class="titulo-seccion">Generaciones de Tunos</h2>
+                    <div class="divisor-decorativo"></div>
+                    <p id="integrantes-subtitulo">En la Tuna existe una jerarquía basada en la experiencia, el respeto y el compromiso. Desde los aspirantes (Pardillos) hasta los veteranos (Tunos), todos formamos una hermandad inquebrantable.</p>
+                </div>
+                
+                <div class="bloque-generacion">
+                    <h3 class="titulo-generacion">1era Generación (Fundadores 2000 - 2005)</h3>
+                    <div class="lista-integrantes-generacion">
+                        <div class="tarjeta-integrante">
+                            <div class="avatar-integrante veterano"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Juan Pérez" /></div>
+                            <p class="apodo-integrante">"El Jefe"</p>
+                            <p class="nombre-integrante">Juan Pérez</p>
+                            <p class="rol-integrante">Bandurria Mayor</p>
+                        </div>
+                        <div class="tarjeta-integrante">
+                            <div class="avatar-integrante veterano"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Carlos Ruiz" /></div>
+                            <p class="apodo-integrante">"Trovador"</p>
+                            <p class="nombre-integrante">Carlos Ruiz</p>
+                            <p class="rol-integrante">Guitarra</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloque-generacion">
+                    <h3 class="titulo-generacion">2da Generación (2006 - 2010)</h3>
+                    <div class="lista-integrantes-generacion">
+                        <div class="tarjeta-integrante">
+                            <div class="avatar-integrante regular"><img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=300&q=80" alt="Luis Gómez" /></div>
+                            <p class="apodo-integrante">"El Púas"</p>
+                            <p class="nombre-integrante">Luis Gómez</p>
+                            <p class="rol-integrante">Laúd</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloque-generacion">
+                    <h3 class="titulo-generacion">3era Generación (2011 - 2015)</h3>
+                    <div class="lista-integrantes-generacion">
+                        <div class="tarjeta-integrante">
+                            <div class="avatar-integrante regular"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80" alt="Mateo Silva" /></div>
+                            <p class="apodo-integrante">"El Rápido"</p>
+                            <p class="nombre-integrante">Mateo Silva</p>
+                            <p class="rol-integrante">Pandereta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloque-generacion">
+                    <h3 class="titulo-generacion">4ta Generación (2016 - Actualidad)</h3>
+                    <div class="lista-integrantes-generacion">
+                        <div class="tarjeta-integrante">
+                            <div class="avatar-integrante pardillo"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=300&q=80" alt="Sebastián Díaz" /></div>
+                            <p class="apodo-integrante">"Trompo"</p>
+                            <p class="nombre-integrante">Sebastián Díaz</p>
+                            <p class="rol-integrante">Pardillo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== PANEL PRESENTACIONES PÚBLICAS ====== -->
+        <section id="panel-presentaciones" class="seccion-panel">
+            <div class="contenedor-interno">
+                <div id="presentaciones-encabezado">
+                    <span class="etiqueta-seccion">Nuestro Arte</span>
+                    <h2 class="titulo-seccion">Galería y Presentaciones</h2>
+                    <div class="divisor-decorativo"></div>
+                    <p id="presentaciones-subtitulo">Selecciona una categoría para disfrutar de nuestras mejores actuaciones y eventos en video.</p>
+                </div>
+
+                <div id="mosaico-galeria-videos">
+                    <div class="item-galeria" onclick="window.abrirTVModal('PLX..._CertamenesEjemplo')" style="background-image:url('https://images.unsplash.com/photo-1516280440504-7c385db1e8a9?auto=format&fit=crop&q=80&w=600');">
+                        <div class="overlay-galeria">
+                            <h3>CERTÁMENES</h3>
+                            <p>Concursos Nacionales e Internacionales</p>
+                        </div>
+                    </div>
+                    <div class="item-galeria" onclick="window.abrirTVModal('PLX..._SerenatasEjemplo')" style="background-image:url('https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&q=80&w=600');">
+                        <div class="overlay-galeria">
+                            <h3>SERENATAS</h3>
+                            <p>Romanticismo bajo el balcón</p>
+                        </div>
+                    </div>
+                    <div class="item-galeria" onclick="window.abrirTVModal('PLX..._CumpleanosEjemplo')" style="background-image:url('https://images.unsplash.com/photo-1530103862676-de8892228bb3?auto=format&fit=crop&q=80&w=600');">
+                        <div class="overlay-galeria">
+                            <h3>CUMPLEAÑOS</h3>
+                            <p>Alegría en tus fechas especiales</p>
+                        </div>
+                    </div>
+                    <div class="item-galeria" onclick="window.abrirTVModal('PLX..._GraduacionesEjemplo')" style="background-image:url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600');">
+                        <div class="overlay-galeria">
+                            <h3>GRADUACIONES</h3>
+                            <p>Celebrando logros académicos</p>
+                        </div>
+                    </div>
+                    <div class="item-galeria" onclick="window.abrirTVModal('PLX..._BodasEjemplo')" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=600');">
+                        <div class="overlay-galeria">
+                            <h3>BODAS</h3>
+                            <p>Acompañando tu gran día</p>
+                        </div>
+                    </div>
+                    <div class="item-galeria" onclick="window.abrirTVModal('PLX..._FeriasEjemplo')" style="background-image:url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=600');">
+                        <div class="overlay-galeria">
+                            <h3>FERIAS UNAC</h3>
+                            <p>Participación en nuestra casa de estudios</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== PANEL CONTACTO ====== -->
+        <section id="panel-contacto" class="seccion-panel">
+            <div class="contenedor-interno">
+                <div id="contacto-encabezado">
+                    <span class="etiqueta-seccion">Estamos a tu servicio</span>
+                    <h2 class="titulo-seccion">Contacto y Contrataciones</h2>
+                    <div class="divisor-decorativo"></div>
+                </div>
+
+                <div id="contacto-distribucion-principal">
+                    <!-- Formulario -->
+                    <div id="contacto-formulario-wrapper">
+                        <h3 class="subtitulo-bloque">Envíanos un mensaje</h3>
+                        <form action="https://formsubmit.co/tunaunac@gmail.com" method="POST" id="formulario-contacto-web">
+                            <input type="hidden" name="_subject" value="Nuevo mensaje desde la Web TUNA UNAC" />
+                            <input type="hidden" name="_captcha" value="false" />
+                            <input type="hidden" name="_template" value="table" />
+                            
+                            <div class="grupo-formulario">
+                                <label class="etiqueta-input">Nombre completo</label>
+                                <input type="text" name="nombre" class="input-texto" required placeholder="Tu nombre o institución" />
+                            </div>
+                            
+                            <div class="grupo-formulario">
+                                <label class="etiqueta-input">Correo Electrónico</label>
+                                <input type="email" name="email" class="input-texto" required placeholder="tucorreo@ejemplo.com" />
+                            </div>
+                            
+                            <div class="grupo-formulario">
+                                <label class="etiqueta-input">Mensaje o Detalles del Evento</label>
+                                <textarea name="mensaje" class="input-textarea" rows="5" required placeholder="Fecha, lugar y tipo de evento..."></textarea>
+                            </div>
+                            
+                            <button type="submit" id="btn-enviar-contacto">
+                                <i class="fa-solid fa-paper-plane"></i> Enviar Consulta
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Info Directa -->
+                    <div id="contacto-info-directa">
+                        <div id="tarjeta-informacion-datos">
+                            <h3 class="subtitulo-bloque">Información Directa</h3>
+                            
+                            <div id="contacto-fila-whatsapp">
+                                <p class="dato-contacto"><i class="fa-solid fa-phone"></i> +51 987 654 321</p>
+                                <a href="https://api.whatsapp.com/send?phone=51987654321" target="_blank" id="btn-contacto-whatsapp">
+                                    <i class="fa-brands fa-whatsapp"></i> Chat Directo
+                                </a>
+                            </div>
+                            
+                            <p class="dato-contacto"><i class="fa-solid fa-envelope"></i> tunaunac@gmail.com</p>
+                            <p class="dato-contacto"><i class="fa-solid fa-location-dot"></i> Pabellón Cultural UNAC, Bellavista - Callao</p>
+                            
+                            <div id="redes-sociales-contacto">
+                                <a href="https://facebook.com" target="_blank" class="enlace-social-redondo" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="https://instagram.com" target="_blank" class="enlace-social-redondo" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://youtube.com" target="_blank" class="enlace-social-redondo" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Mapa -->
+                        <div id="contenedor-mapa-google">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.7656910626356!2d-77.11942708453444!3d-12.06013699145803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cbebc63b15db%3A0xc07c4ba22f42a983!2sNational%20University%20of%20Callao!5e0!3m2!1sen!2spe!4v1684349123456!5m2!1sen!2spe" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== DASHBOARD (ÁREA PRIVADA) ====== -->
+        <section id="panel-miembros" class="seccion-panel">
+            <aside id="dashboard-sidebar">
+                
+                <div id="perfil-usuario-sidebar">
+                    <div id="avatar-usuario"><i class="fa-solid fa-user"></i></div>
+                    <div id="textos-perfil-sidebar">
+                        <p id="nombre-usuario">Rubén Steve</p>
+                        <p id="rol-usuario">Administrador</p>
+                    </div>
+                </div>
+
+                <p id="etiqueta-menu-sidebar">MENÚ</p>
+                
+                <nav id="navegacion-dashboard">
+                    <div class="item-menu-dashboard activo" data-seccion="repertorio-dash">
+                        <i class="fa-solid fa-music icono-menu"></i> Repertorio
+                    </div>
+                    <div class="item-menu-dashboard" data-seccion="generador">
+                        <i class="fa-solid fa-guitar icono-menu"></i> Generador
+                    </div>
+                    <div class="item-menu-dashboard" data-seccion="tareas">
+                        <i class="fa-solid fa-list-check icono-menu"></i> Tareas
+                    </div>
+                    <div class="item-menu-dashboard" data-seccion="mi-progreso">
+                        <i class="fa-solid fa-chart-simple icono-menu"></i> Mi Progreso
+                    </div>
+                    <div class="item-menu-dashboard" data-seccion="progreso-miembros">
+                        <i class="fa-solid fa-user-group icono-menu"></i> Progreso Miembros
+                    </div>
+                    <div class="item-menu-dashboard" data-seccion="ensayos">
+                        <i class="fa-solid fa-calendar-days icono-menu"></i> Ensayos
+                    </div>
+                    <div class="item-menu-dashboard" data-seccion="presentaciones-dash">
+                        <i class="fa-solid fa-microphone icono-menu"></i> Presentaciones
+                    </div>
+                    <div class="item-menu-dashboard" data-seccion="perfil">
+                        <i class="fa-solid fa-user-gear icono-menu"></i> Perfil
+                    </div>
+                    <div class="item-menu-dashboard" id="menu-admin-only" data-seccion="admin">
+                        <i class="fa-solid fa-user-shield icono-menu"></i> Panel Admin
+                    </div>
+                </nav>
+
+                <div id="contenedor-cerrar-sesion">
+                    <div class="item-menu-dashboard" onclick="window.cerrarSesionDashboard()">
+                        <i class="fa-solid fa-right-from-bracket icono-menu"></i> Cerrar Sesión
+                    </div>
+                </div>
+
+                
+            </aside>
+<!-- Botón flotante para móviles: abrir sidebar -->
+<button id="btn-flotante-sidebar" onclick="window.toggleSidebar()" title="Menú">
+    <i class="fa-solid fa-bars"></i>
+</button>
+            <!-- CONTENEDOR DONDE JS INYECTA LAS SECCIONES -->
+            <div id="dashboard-contenido">
+                <!-- Aquí se inyectarán las vistas mediante JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== MODALES GLOBALES ===== -->
+    
+    <div id="modal-tv-youtube" class="modal-superpuesto" onclick="if(event.target===this){this.classList.remove('modal-activo'); document.getElementById('tv-iframe').src='';}">
+        <div id="contenedor-reproductor-tv">
+            <button id="btn-cerrar-tv" onclick="document.getElementById('modal-tv-youtube').classList.remove('modal-activo'); document.getElementById('tv-iframe').src='';">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <iframe id="tv-iframe" width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="modal-login" class="modal-superpuesto" onclick="if(event.target===this) window.cerrarModalMiembros();">
+        <div class="caja-modal-estandar" id="caja-modal-login">
+            <button class="btn-cerrar-modal-esquina" onclick="window.cerrarModalMiembros()"><i class="fa-solid fa-xmark"></i></button>
+            <img src="ESCUDO.png" id="logo-modal-login" alt="Escudo UNAC" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Escudo_de_la_Universidad_Nacional_del_Callao.svg/120px-Escudo_de_la_Universidad_Nacional_del_Callao.svg.png'"/>
+            <h2 id="titulo-modal-login">Área de Miembros</h2>
+            <p id="subtitulo-modal-login">Ingresa tus credenciales institucionales</p>
+            
+            <form onsubmit="window.ingresarAreaMiembros(event)" id="formulario-acceso-miembros">
+                <div class="grupo-input-con-icono">
+                    <label class="etiqueta-input">Correo Electrónico</label>
+                    <div class="contenedor-input-icono">
+                        <i class="fa-solid fa-envelope icono-input"></i>
+                        <input type="email" id="login-email" class="input-estandar" required />
+                    </div>
+                </div>
+                <div class="grupo-input-con-icono">
+                    <label class="etiqueta-input">Contraseña</label>
+                    <div class="contenedor-input-icono">
+                        <i class="fa-solid fa-lock icono-input"></i>
+                        <input type="password" id="login-password" class="input-estandar" required />
+                        <i class="fa-solid fa-eye-slash" id="toggle-password" onclick="window.toggleVerPassword()"></i>
+                    </div>
+                </div>
+                
+                <div id="opciones-extra-login">
+                    <label id="etiqueta-recordarme"><input type="checkbox" id="login-remember" /> Recordarme</label>
+                    <a href="#" id="enlace-recuperar-password" onclick="window.recuperarContrasena()">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <button type="submit" id="btn-ejecutar-login">INGRESAR</button>
+                <p id="mensaje-alerta-login" style="display:none;"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-sistema" class="modal-superpuesto" onclick="if(event.target===this) window.cerrarModalSistema();">
+        <div class="caja-modal-estandar" id="caja-modal-alerta-sistema">
+            <p id="texto-mensaje-sistema"></p>
+            <div id="contenedor-botones-sistema"></div>
+        </div>
+    </div>
+
+    <div id="modal-whatsapp" class="modal-superpuesto" onclick="if(event.target===this) window.cerrarWhatsAppModal();">
+        <div class="caja-modal-estandar" id="caja-modal-whatsapp">
+            <button class="btn-cerrar-modal-esquina" onclick="window.cerrarWhatsAppModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="titulo-modal-wa"><i class="fa-brands fa-whatsapp"></i> Vista previa para WhatsApp</h3>
+            <div id="contenedor-vista-previa-wa"></div>
+            <textarea id="texto-crudo-wa" style="display:none;"></textarea>
+            
+            <div id="acciones-modal-wa">
+                <button onclick="window.cerrarWhatsAppModal()" id="btn-cancelar-wa">Cerrar</button>
+                <button onclick="window.copiarTextoWhatsApp()" id="btn-copiar-wa"><i class="fa-regular fa-copy"></i> Copiar texto</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-detalle-miembro" class="modal-superpuesto" onclick="if(event.target===this) window.cerrarModalDetalleMiembro();">
+        <div class="caja-modal-estandar" id="caja-modal-perfil-miembro">
+            <button class="btn-cerrar-modal-esquina" onclick="window.cerrarModalDetalleMiembro()"><i class="fa-solid fa-xmark"></i></button>
+            <div id="contenedor-detalle-perfil"></div>
+        </div>
+    </div>
+
+    <!-- ===== TOAST CONTENEDOR ===== -->
+    <div id="contenedor-global-toasts"></div>
+
+    <!-- ===== SCRIPTS MODULARIZADOS ===== -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+/* ==========================================================================
+   ARCHIVO: css/modulos/progreso.css
+   PROPÓSITO: Estilos para las vistas "Mi Progreso" y "Progreso Global".
+   ========================================================================== */
+
+/* --- BUSCADOR (compartido con otros módulos) --- */
+.contenedor-buscador {
+    display: flex;
+    align-items: center;
+    background: var(--color-fondo);
+    border: 1px solid var(--color-borde-fuerte);
+    border-radius: var(--radio-base);
+    padding: 0 0.75rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contenedor-buscador:focus-within {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px var(--color-primario-claro);
+}
+
+.contenedor-buscador .icono-buscador {
+    color: var(--color-gris-texto);
+    margin-right: 0.5rem;
+}
+
+.input-buscador {
+    border: none;
+    outline: none;
+    padding: 0.75rem 0;
+    background: transparent;
+    flex: 1;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+/* --- FILTROS DE INSTRUMENTOS (scroll horizontal en móviles) --- */
+.barra-filtros-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.barra-filtros-scroll .barra-filtros {
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+/* --- TABLAS --- */
+.contenedor-tabla-responsiva {
+    overflow-x: auto;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-base);
+    background: white;
+    box-shadow: var(--sombra-sm);
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: separate; /* Necesario para el sticky */
+    border-spacing: 0;
+    font-size: 0.9rem;
+}
+
+.cabecera-tabla th {
+    background: var(--color-fondo);
+    color: var(--color-terciario);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    border-bottom: 2px solid var(--color-borde-fuerte);
+    white-space: nowrap;
+}
+
+/* Columnas de la tabla */
+.columna-principal,
+.columna-principal-fija {
+    text-align: left !important;
+    padding-left: 1.25rem !important;
+}
+
+.columna-secundaria {
+    text-align: center;
+}
+
+/* --- FILAS --- */
+.fila-tabla-progreso {
+    transition: background-color 0.15s;
+}
+
+.fila-tabla-progreso:hover {
+    background-color: var(--color-primario-claro);
+}
+
+.fila-tabla-progreso td {
+    padding: 0.9rem 0.75rem;
+    border-bottom: 1px solid var(--color-borde);
+    vertical-align: middle;
+}
+
+.celda-titulo-cancion {
+    font-weight: 500;
+    color: var(--color-terciario);
+}
+
+/* =================================================================
+   COLUMNA FIJA PARA PROGRESO GLOBAL
+   ================================================================= */
+.tabla-matriz .columna-principal-fija,
+.tabla-matriz .celda-titulo-cancion {
+    position: sticky;
+    left: 0;
+    background-color: white;
+    z-index: 2;
+    box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
+}
+
+.tabla-matriz thead .columna-principal-fija {
+    z-index: 3; /* Encima de las celdas del cuerpo */
+}
+
+.tabla-matriz .columna-miembro,
+.tabla-matriz .celda-estado-miembro {
+    min-width: 70px;
+    text-align: center;
+}
+
+/* --- AVATARES Y NOMBRES EN TABLA MATRIZ --- */
+.columna-miembro {
+    text-align: center;
+    min-width: 80px;
+}
+
+.avatar-miniatura-tabla {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radio-circulo);
+    object-fit: cover;
+    border: 2px solid var(--color-borde);
+    display: block;
+    margin: 0 auto 0.25rem;
+}
+
+.nombre-miembro-tabla {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-gris-texto);
+    display: block;
+    white-space: nowrap;
+}
+
+/* --- CELDAS DE ESTADO (ICONOS) --- */
+.celda-estado-miembro {
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.icono-estado-exito {
+    color: var(--color-exito);
+}
+
+.icono-estado-progreso {
+    color: var(--color-alerta);
+}
+
+.icono-estado-pendiente {
+    color: var(--color-peligro);
+    opacity: 0.7;
+}
+
+/* --- BOTONES DE PROGRESO DENTRO DE TABLA (se ajustan al espacio) --- */
+.celda-acciones-progreso .selector-estado-progreso {
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+/* =================================================================
+   RESPONSIVE
+   ================================================================= */
+@media (max-width: 1024px) {
+    .tabla-datos {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .columna-miembro {
+        min-width: 60px;
+    }
+    .avatar-miniatura-tabla {
+        width: 28px;
+        height: 28px;
+    }
+    .nombre-miembro-tabla {
+        font-size: 0.7rem;
+    }
+    .celda-estado-miembro {
+        font-size: 1rem;
+    }
+}
