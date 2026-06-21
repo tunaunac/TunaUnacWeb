@@ -1,0 +1,762 @@
+/* ==========================================================================
+ARCHIVO: css/modulos/repertorio.css
+PROPÓSITO: Estilos específicos para la biblioteca musical, filtros,
+tarjetas de canciones y overlays de recursos (Videos/Archivos).
+========================================================================== */
+
+/* --- CABECERA Y ACCIONES GLOBALES --- */
+.repertorio-cabecera {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1.5rem;
+padding-bottom: 1rem;
+border-bottom: 1px solid var(--color-borde);
+}
+
+.repertorio-titulo {
+font-size: 1.875rem;
+font-weight: 700;
+color: var(--color-terciario);
+margin: 0;
+}
+/* ==========================================================================
+   ARCHIVO: css/modulos/repertorio.css
+   PROPÓSITO: Estilos actualizados – Lista vertical, overlays a pantalla completa,
+              texto en mayúsculas, botones de acción diferenciados.
+   ========================================================================== */
+
+/* =================================================================
+   BARRA DE CATEGORÍAS + BOTÓN AÑADIR CATEGORÍA
+   ================================================================= */
+.repertorio-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.categoria-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Estilo de los botones de categoría (diferente a los de acción) */
+.btn-categoria {
+    background: white;
+    border: 1px solid var(--color-borde-fuerte);
+    color: var(--color-gris-texto);
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;          /* forma de píldora */
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-categoria:hover {
+    background: var(--color-primario-claro);
+    border-color: var(--color-primario-medio);
+    color: var(--color-primario-hover);
+}
+
+.btn-categoria.activo {
+    background: var(--color-primario);
+    border-color: var(--color-primario);
+    color: white;
+    box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
+}
+
+/* Botón "Nueva Categoría" (admin) mantiene el estilo de borde discontinuo */
+#btn-crear-categoria {
+    margin-left: auto;             /* Empuja hacia la derecha */
+    background: white;
+    border: 2px dashed var(--color-primario-medio);
+    color: var(--color-primario-hover);
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radio-base);
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+#btn-crear-categoria:hover {
+    background: var(--color-primario-claro);
+    border-style: solid;
+}
+
+/* =================================================================
+   BUSCADOR (ANCHO TOTAL)
+   ================================================================= */
+.repertorio-buscador {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.repertorio-buscador .input-icono-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--color-borde-fuerte);
+    border-radius: var(--radio-base);
+    padding: 0 1rem;
+    transition: border-color 0.2s;
+}
+
+.repertorio-buscador .input-icono-wrapper:focus-within {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px var(--color-primario-claro);
+}
+
+.repertorio-buscador .input-icono-wrapper i {
+    color: var(--color-gris-texto);
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.repertorio-buscador input {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0.875rem 0;
+    font-size: 0.95rem;
+    flex: 1;
+    font-family: inherit;
+}
+
+/* =================================================================
+   BOTÓN "AÑADIR CANCIÓN" (ANCHO TOTAL, ESTILO DISCONTINUO)
+   ================================================================= */
+.repertorio-acciones-globales {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+#btn-crear-cancion {
+    width: 100%;
+    background: white;
+    border: 2px dashed var(--color-primario-medio);
+    color: var(--color-primario-hover);
+    padding: 0.875rem;
+    border-radius: var(--radio-base);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+#btn-crear-cancion:hover {
+    background: var(--color-primario-claro);
+    border-style: solid;
+}
+
+/* =================================================================
+   LISTA DE CANCIONES (VERTICAL, ANCHO TOTAL, SIN BORDE IZQUIERDO)
+   ================================================================= */
+.repertorio-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.cancion-tarjeta {
+    background: white;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-base);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--sombra-sm);
+    /* Sin animación flotante, sin borde izquierdo */
+}
+
+.cancion-tarjeta:hover {
+    background-color: var(--color-primario-claro);
+    box-shadow: var(--sombra-md);
+}
+.cancion-modo-edicion {
+
+    flex-direction: column;
+}
+.edicion-campos-cancion, .edicion-acciones-cancion {
+display: flex;
+gap: 1rem;
+width: 100%;
+
+}
+.edicion-acciones-cancion button {
+    flex: 1;
+}
+.cancion-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.cancion-titulo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-terciario);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* Indicador de progreso junto al título (opcional) */
+.cancion-info-extra {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-gris-texto);
+}
+
+.cancion-progreso-indicador {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-borde-fuerte);
+    flex-shrink: 0;
+}
+
+.cancion-progreso-indicador.completado {
+    background: var(--color-exito);
+}
+
+.cancion-progreso-indicador.en-progreso {
+    background: var(--color-alerta);
+}
+
+/* Acciones admin (editar/eliminar) */
+.cancion-acciones-admin {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Botones de acción con bordes de colores */
+.btn-icono-accion {
+    background: white;
+    border: 1px solid var(--color-primario-medio); /* celeste */
+    color: var(--color-primario-hover);
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radio-base);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.btn-icono-accion:hover {
+    background: var(--color-primario);
+    color: white;
+}
+
+.btn-peligro-texto {
+    border-color: var(--color-peligro);  /* borde rojo */
+    color: var(--color-peligro);
+}
+
+.btn-peligro-texto:hover {
+    background: var(--color-peligro);
+    color: white;
+}
+
+/* =================================================================
+   OVERLAYS (INSTRUMENTOS Y RECURSOS) - PANTALLA COMPLETA
+   ================================================================= */
+#repertorio-overlays,
+#tareas-overlays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 50;
+    overflow-y: auto;
+    display: none; /* se muestra cuando tiene contenido */
+}
+
+#repertorio-overlays:not(:empty),
+#tareas-overlays:not(:empty) {
+    display: block;
+}
+
+/* El overlay-contenedor ya no es una tarjeta centrada, 
+   sino un bloque que ocupa todo el espacio con padding */
+.overlay-contenedor {
+    width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    background: white;
+    position: relative;
+}
+
+/* Botón volver (esquina superior izquierda) */
+.btn-volver-overlay {
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    background: white;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-base);
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-terciario);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--sombra-sm);
+    z-index: 5;
+}
+
+.btn-volver-overlay:hover {
+    background: var(--color-primario-claro);
+    border-color: var(--color-primario);
+    color: var(--color-primario-hover);
+}
+
+/* =================================================================
+   OVERLAY DE INSTRUMENTOS
+   ================================================================= */
+.overlay-titulo-principal {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-terciario);
+    text-align: center;
+    margin: 2rem 0 2rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-secundario);
+    text-transform: uppercase;
+}
+
+.overlay-grid-instrumentos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.tarjeta-instrumento {
+    background: white;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-base);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: var(--sombra-sm);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta-instrumento:hover {
+    box-shadow: var(--sombra-md);
+    border-color: var(--color-primario-medio);
+}
+
+.tarjeta-instrumento-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.tarjeta-instrumento-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.tarjeta-instrumento-nombre {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-terciario);
+    margin: 0;
+}
+
+/* Tarjeta admin (añadir instrumento) */
+.tarjeta-instrumento-admin {
+    background: var(--color-fondo);
+    border: 2px dashed var(--color-primario-medio);
+    border-radius: var(--radio-base);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.tarjeta-admin-titulo {
+    font-weight: 600;
+    color: var(--color-gris-texto);
+}
+
+/* =================================================================
+   SELECTOR DE PROGRESO (BOTONES)
+   ================================================================= */
+.selector-estado-progreso {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.btn-estado {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--color-borde-fuerte);
+    background: white;
+    border-radius: var(--radio-base);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-gris-texto);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-estado.sin-iniciar:hover { background: #fef2f2; border-color: var(--color-peligro); color: var(--color-peligro); }
+.btn-estado.sin-iniciar.activo { background: var(--color-peligro); border-color: var(--color-peligro); color: white; }
+
+.btn-estado.en-progreso:hover { background: #fffbeb; border-color: var(--color-alerta); color: var(--color-alerta); }
+.btn-estado.en-progreso.activo { background: var(--color-alerta); border-color: var(--color-alerta); color: white; }
+
+.btn-estado.completado:hover { background: #ecfdf5; border-color: var(--color-exito); color: var(--color-exito); }
+.btn-estado.completado.activo { background: var(--color-exito); border-color: var(--color-exito); color: white; }
+
+/* =================================================================
+   PANEL DE RECURSOS (VIDEO + ARCHIVOS)
+   ================================================================= */
+.recursos-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-fondo);
+    padding: 1.5rem;
+    border-radius: var(--radio-base);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--color-borde);
+}
+
+.btn-navegacion-recurso {
+    background: white;
+    border: 1px solid var(--color-borde-fuerte);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radio-base);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--color-terciario);
+}
+.btn-navegacion-recurso:hover {
+    background: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+
+.recursos-titulos {
+    text-align: center;
+}
+
+.recursos-cancion {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-terciario);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.recursos-instrumento {
+    font-size: 1rem;
+    color: var(--color-primario);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin: 0;
+}
+
+.recursos-barra-progreso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--color-superficie);
+    border-radius: var(--radio-base);
+    border: 1px solid var(--color-borde);
+}
+.recursos-barra-progreso span {
+    text-wrap: nowrap;
+}
+.recursos-progreso-etiqueta {
+    font-weight: 600;
+    color: var(--color-terciario);
+}
+
+.recursos-cuerpo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.recursos-seccion-titulo {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-terciario);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+}
+
+/* Icono YouTube rojo */
+.recursos-seccion-titulo .fa-youtube {
+    color: #FF0000;
+    font-size: 1.3rem;
+}
+
+/* Reproductor de video */
+.reproductor-youtube-wrapper {
+    background: var(--color-terciario);
+    border-radius: var(--radio-base);
+    overflow: hidden;
+    box-shadow: var(--sombra-md);
+    display: flex;
+    flex-direction: column;
+}
+
+.reproductor-youtube-wrapper iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+
+.reproductor-controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border-top: 1px solid var(--color-borde);
+}
+
+.indicador-paginacion {
+    font-weight: 600;
+    color: var(--color-gris-texto);
+    font-size: 0.875rem;
+}
+
+/* Lista de archivos */
+.lista-archivos-recursos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.enlace-archivo-descarga {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-base);
+    text-decoration: none;
+    color: var(--color-terciario);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.enlace-archivo-descarga:hover {
+    background: var(--color-fondo);
+    border-color: var(--color-primario);
+    transform: translateX(4px);
+}
+
+.icono-archivo-pdf {
+    color: var(--color-peligro);
+    font-size: 2rem;
+}
+
+.icono-archivo-audio {
+    color: var(--color-exito);
+    font-size: 2rem;
+}
+
+/* Pie del panel de recursos (admin) */
+.recursos-pie-admin {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-borde);
+    display: flex;
+    justify-content: center;
+}
+
+/* Edición de recursos (estilos similares) */
+.edicion-recursos-seccion {
+    background: var(--color-fondo);
+    padding: 1.5rem;
+    border-radius: var(--radio-base);
+    border: 1px solid var(--color-borde-fuerte);
+    margin-bottom: 1.5rem;
+}
+
+.edicion-inputs-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.archivo-input-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--color-superficie);
+    padding: 1rem;
+    border-radius: var(--radio-base);
+    border: 1px solid var(--color-borde);
+}
+
+.edicion-recursos-guardar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+/* =================================================================
+   MEJORA DE INPUTS Y SELECTS (entrada-formulario)
+   ================================================================= */
+.entrada-formulario {
+    width: 100%;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--color-borde-fuerte);
+    border-radius: 999px;
+    font-family: var(--fuente-principal);
+    font-size: 0.95rem;
+    background: white;
+    color: var(--color-terciario);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+
+select.entrada-formulario {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 0.8rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  flex: 1;
+border-radius:  var(--radio-base);
+}
+input.entrada-formulario {
+  flex: 2;
+  border-radius:  var(--radio-base);
+}
+/* Tamaño más compacto en formularios de edición */
+.edicion-campos-cancion .entrada-formulario,
+.categoria-item.modo-edicion .entrada-formulario {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    
+}
+
+/* =================================================================
+   OVERLAY DE RECURSOS (superposición absoluta)
+   ================================================================= */
+/* El contenedor padre debe permitir hijos absolutos */
+#repertorio-overlays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;           /* oculta el scroll del overlay de instrumentos */
+    z-index: 50;
+}
+
+/* El overlay de instrumentos (creado por abrirOverlayInstrumentos) sigue siendo un bloque normal */
+#repertorio-overlays > .overlay-contenedor {
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* El overlay de recursos se posiciona encima, cubriendo toda el área */
+#overlay-recursos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 60;
+    overflow-y: auto;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* Ajustamos el botón volver dentro del overlay de recursos para que no se solape */
+#overlay-recursos .btn-volver-overlay {
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+}
+/* =================================================================
+   RESPONSIVIDAD
+   ================================================================= */
+@media (max-width: 768px) {
+    .recursos-cuerpo-grid {
+        grid-template-columns: 1fr;
+    }
+    .edicion-campos-cancion {
+        flex-direction: column;
+    }
+    .archivo-input-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .overlay-grid-instrumentos {
+        grid-template-columns: 1fr;
+    }
+}
